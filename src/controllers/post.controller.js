@@ -7,10 +7,16 @@ class PostController {
     const data = await PostService.createPost(req.body);
     new SuccessResponse(data).send(res);
   };
+
   handleGetAllPosts = async (req, res, next) => {
-    const response = await PostService.handleGetAllPosts(req.user.userId);
+    const { page = 1, limit = 10 } = req.query;
+    const response = await PostService.handleGetAllPosts({
+      userId: req.user.userId,
+      page: Number.parseInt(page, 10),
+      limit: Number.parseInt(limit, 10),
+    });
     new SuccessResponse({
-      message: "Get  non-friends success",
+      message: "Get posts success",
       metadata: response,
     }).send(res);
   };

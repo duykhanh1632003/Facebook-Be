@@ -3,9 +3,9 @@
 const { BadRequestError } = require("../core/error.response");
 const { post } = require("../models/post.model");
 const { user } = require("../models/user.model");
-const { likeComment } = require("../models/likeComment.model");
 const { comment } = require("../models/comment.model");
 const friendList = require("../models/friendList");
+const { feelingPost } = require("../models/feelingPost.model");
 const mongoose = require("mongoose");
 
 class PostService {
@@ -31,16 +31,27 @@ class PostService {
     return newPost;
   };
 
-  static likedPost = async ({ userId, postId }) => {
+  static likedPost = async ({ userId, postId, type }) => {
     const existingPost = await post.findById(postId);
     if (!existingPost) {
-      throw new Error("Bài đăng không tồn tại");
+      throw new Error("Post does not exist");
     }
-    const isLiked = existingPost.likes.includes(userId);
-    if (isLiked) {
-      existingPost.likes = existingPost.likes.filter((id) => id !== userId);
+
+    const existingLike = await feelingPost.findOne({ userId, postId });
+    if (existingLike) {
+      if (existingLike.type === type) {
+        await existingLike.remove();
+        existingPost.likes = existingPost.likes.filter(
+          (id) => id.toString() !== existingLike._id.toString()
+        );
+      } else {
+        existingLike.type = type;
+        await existingLike.save();
+      }
     } else {
-      existingPost.likes.push(userId);
+      const newLike = await feelingPost.create({ userId, type });
+      existingPost.likes.push(newLike._id);
+      await newLike.save();
     }
     await existingPost.save();
   };
@@ -48,55 +59,63 @@ class PostService {
   static savePost = async ({ userId, postId }) => {
     const existingPost = await post.findById(postId);
     if (!existingPost) {
-      throw new Error("Bài đăng không tồn tại");
+      throw new Error("Post does not exist");
     }
     const findUser = await user.findById(userId);
     if (!findUser) {
-      throw new BadRequestError("Không tìm được user");
+      throw new BadRequestError("User not found");
     }
     const isSaved = findUser.savePosts.includes(postId);
     if (isSaved) {
       findUser.savePosts = findUser.savePosts.filter((id) => id !== userId);
     } else {
-      findUser.savePosts.push(userId);
+      findUser.savePosts.push(postId);
     }
     await findUser.save();
   };
 
-  static handleGetAllPosts = async (userId) => {
-    const posts = await post
-      .find()
-      .populate("author", "firstName lastName avatar")
-      .populate("comments");
+  static handleGetAllPosts = async ({ userId, page = 1, limit = 10 }) => {
+    const skip = (page - 1) * limit;
 
+    // Get friend list
     const friendLists = await friendList.find({ user: userId });
-
-    // Tạo một mảng chứa tất cả các ID của bạn bè
-    const friendIds = friendLists.reduce((acc, fl) => {
-      return acc.concat(fl.friends);
-    }, []);
-
-    // Thêm ID của bản thân người dùng vào mảng friendIds
-    friendIds.push(new mongoose.Types.ObjectId(userId));
-    console.log("check fri", friendIds);
-
-    // Lọc bài đăng của bạn bè và của bản thân
-    const allPosts = posts.filter((p) =>
-      friendIds.some((id) => id.equals(p.author._id))
+    const friendIds = friendLists.reduce(
+      (acc, fl) => acc.concat(fl.friends),
+      []
     );
-    console.log("Check all", allPosts);
 
-    // Lấy tất cả các comments cho các bài đăng đã lọc
-    const postsWithComments = await Promise.all(
-      allPosts.map(async (p) => {
+    // Add user's own ID to friend list
+    friendIds.push(new mongoose.Types.ObjectId(userId));
+
+    // Find posts by friends
+    const posts = await post
+      .find({ author: { $in: friendIds } })
+      .populate("author", "firstName lastName avatar")
+      .sort({ createdAt: -1 }) // Optionally, sort by creation date
+      .skip(skip)
+      .limit(limit)
+      .exec();
+
+    const postsWithCommentsAndLikes = await Promise.all(
+      posts.map(async (p) => {
         const comments = await comment
           .find({ postId: p._id })
           .populate("userId", "firstName lastName avatar");
-        return { ...p._doc, comments };
+
+        const likes = await Promise.all(
+          p.likes.map(async (likeId) => {
+            const like = await feelingPost
+              .findById(likeId)
+              .populate("userId", "firstName lastName avatar");
+            return like;
+          })
+        );
+
+        return { ...p._doc, comments, likes };
       })
     );
-    console.log("postsWithComments", postsWithComments);
-    return postsWithComments;
+
+    return postsWithCommentsAndLikes;
   };
 }
 
