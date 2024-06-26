@@ -13,9 +13,14 @@ const feelingPostSchema = new Schema( // Use Schema instead of mongoose.Schema
       required: true,
       enum: ["like", "favourite", "smile", "wow", "cry", "angry"],
     },
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
+      required: true,
+    },
+    postId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "post",
       required: true,
     },
   },

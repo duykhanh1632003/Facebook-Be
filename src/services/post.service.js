@@ -32,28 +32,21 @@ class PostService {
   };
 
   static likedPost = async ({ userId, postId, type }) => {
-    const existingPost = await post.findById(postId);
-    if (!existingPost) {
-      throw new Error("Post does not exist");
-    }
-
     const existingLike = await feelingPost.findOne({ userId, postId });
     if (existingLike) {
-      if (existingLike.type === type) {
-        await existingLike.remove();
-        existingPost.likes = existingPost.likes.filter(
-          (id) => id.toString() !== existingLike._id.toString()
-        );
-      } else {
-        existingLike.type = type;
-        await existingLike.save();
-      }
+      await feelingPost.findByIdAndDelete(existingLike._id);
+      await post.updateOne(
+        { _id: postId },
+        { $pull: { likes: existingLike._id } }
+      );
+      return { message: "Like removed" };
     } else {
-      const newLike = await feelingPost.create({ userId, type });
-      existingPost.likes.push(newLike._id);
+      const newLike = await feelingPost.create({ userId, postId, type });
       await newLike.save();
+      await post.updateOne({ _id: postId }, { $push: { likes: newLike._id } });
+
+      return { message: "Like added" };
     }
-    await existingPost.save();
   };
 
   static savePost = async ({ userId, postId }) => {

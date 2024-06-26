@@ -20,6 +20,12 @@ class PostController {
       metadata: response,
     }).send(res);
   };
+  handlePostFeelingPost = async (req, res, next) => {
+    await PostService.likedPost(req.body);
+    new SuccessResponse({
+      message: "Get posts success",
+    }).send(res);
+  };
 }
 
 module.exports = new PostController();
