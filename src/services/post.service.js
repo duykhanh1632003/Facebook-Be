@@ -121,9 +121,11 @@ class PostService {
     if (!postDetail) {
       throw new BadRequestError("Post not found");
     }
-    const comments = await comment.find({ postId }).populate("userId").exec();
-    const nestedComments = buildNestedComments(comments);
-    return { postDetail, comments: nestedComments };
+    const comments = await comment
+      .find({ postId: postId })
+      .populate("userId")
+      .exec();
+    return { postDetail, comments };
   };
 }
 
