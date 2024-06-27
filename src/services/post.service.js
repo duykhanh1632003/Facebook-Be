@@ -123,7 +123,7 @@ class PostService {
     }
     const comments = await comment
       .find({ postId: postId })
-      .populate("userId")
+      .populate("userId", "firstName lastName avatar _id")
       .exec();
     return { postDetail, comments };
   };

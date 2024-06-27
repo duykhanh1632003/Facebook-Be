@@ -34,6 +34,15 @@ class AccessController {
     const result = await AccessService.refreshAccessToken(refreshToken);
     return res.status(200).json(result);
   };
+  createNewAvatar = async (req, res, next) => {
+    const { avatar } = req.body;
+    console.log("check avt", avatar);
+    const result = await AccessService.createNewAvatar({
+      userId: req.user.userId,
+      avatar: avatar,
+    });
+    return res.status(200).json(result);
+  };
 }
 
 module.exports = new AccessController();

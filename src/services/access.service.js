@@ -139,6 +139,24 @@ class AccessService {
       tokens,
     };
   };
+
+  static createNewAvatar = ({ userId, avatar }) => {
+    const userInfo = user.findOneAndUpdate(
+      { _id: userId },
+      {
+        $set: {
+          avatar: avatar,
+        },
+      }
+    );
+    if (!userInfo) {
+      throw new BadRequestError("Add avatar done");
+    }
+    return getInfoData({
+      fields: ["_id"],
+      object: userInfo,
+    });
+  };
 }
 
 module.exports = AccessService;

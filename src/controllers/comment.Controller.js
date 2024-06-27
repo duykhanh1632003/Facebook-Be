@@ -5,6 +5,7 @@ const { CREATED, SuccessResponse } = require("../core/success.response.js");
 class CommentController {
   createNewCommentPost = async (req, res, next) => {
     const data = await CommentService.createNewCommentPost(req.body);
+    console.log("check data", data);
     new SuccessResponse(data).send(res);
   };
 }

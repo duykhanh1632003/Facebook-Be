@@ -13,11 +13,20 @@ router.post(
 );
 
 router.use(authentication);
+router.post(
+  "/user/update/avatar",
+  asyncHandler(accessController.createNewAvatar)
+);
+
 router.post("/user/logout", asyncHandler(accessController.logout));
-router.post("/user/refreshToken", asyncHandler(accessController.handleRefreshToken));
+router.post(
+  "/user/refreshToken",
+  asyncHandler(accessController.handleRefreshToken)
+);
 
 router.post(
   "/user/handleRefreshToken",
   asyncHandler(accessController.handlerRefreshToken)
 );
+
 module.exports = router;
