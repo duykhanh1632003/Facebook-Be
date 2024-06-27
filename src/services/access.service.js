@@ -140,22 +140,25 @@ class AccessService {
     };
   };
 
-  static createNewAvatar = ({ userId, avatar }) => {
-    const userInfo = user.findOneAndUpdate(
+  static createNewAvatar = async ({ userId, avatar }) => {
+    const userInfo = await user.findOneAndUpdate(
       { _id: userId },
       {
         $set: {
           avatar: avatar,
         },
-      }
+      },
+      { new: true }
     );
+
     if (!userInfo) {
-      throw new BadRequestError("Add avatar done");
+      throw new BadRequestError("Failed to update avatar");
     }
-    return getInfoData({
-      fields: ["_id"],
-      object: userInfo,
-    });
+
+    return {
+      userId: userInfo._id,
+      avatar: userInfo.avatar,
+    };
   };
 }
 
