@@ -23,7 +23,16 @@ class PostController {
   handlePostFeelingPost = async (req, res, next) => {
     await PostService.likedPost(req.body);
     new SuccessResponse({
-      message: "Get posts success",
+      message: "Get posts success", 
+    }).send(res);
+  };
+
+  handleGetDetailPost = async (req, res, next) => {
+    const { id } = req.params;
+    const response = await PostService.handleGetDetailPost(id);
+    new SuccessResponse({
+      message: "Get detail post success",
+      metadata: response,
     }).send(res);
   };
 }

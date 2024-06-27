@@ -8,6 +8,12 @@ const router = express.Router();
 router.use(authentication);
 router.post("/new/post", asyncHandler(PostController.handleAddNewPost));
 router.get("/get/allPosts", asyncHandler(PostController.handleGetAllPosts));
-router.post("/post/feelingPost", asyncHandler(PostController.handlePostFeelingPost));
-
+router.post(
+  "/post/feelingPost",
+  asyncHandler(PostController.handlePostFeelingPost)
+);
+router.get(
+  "/get/detailPost/:id",
+  asyncHandler(PostController.handleGetDetailPost)
+);
 module.exports = router;

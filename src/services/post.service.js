@@ -7,6 +7,8 @@ const { comment } = require("../models/comment.model");
 const friendList = require("../models/friendList");
 const { feelingPost } = require("../models/feelingPost.model");
 const mongoose = require("mongoose");
+const { likeComment } = require("../models/likeComment.model");
+const { buildNestedComments } = require("../models/repositories/comment.repo");
 
 class PostService {
   static createPost = async ({
@@ -109,6 +111,19 @@ class PostService {
     );
 
     return postsWithCommentsAndLikes;
+  };
+
+  static handleGetDetailPost = async (postId) => {
+    const postDetail = await post
+      .findById(postId)
+      .populate("author", "firstName lastName avatar")
+      .exec();
+    if (!postDetail) {
+      throw new BadRequestError("Post not found");
+    }
+    const comments = await comment.find({ postId }).populate("userId").exec();
+    const nestedComments = buildNestedComments(comments);
+    return { postDetail, comments: nestedComments };
   };
 }
 
