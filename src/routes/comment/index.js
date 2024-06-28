@@ -10,5 +10,12 @@ router.post(
   "/new/commentPost",
   asyncHandler(CommentController.createNewCommentPost)
 );
-
+router.post(
+  "/edit/commentPost",
+  asyncHandler(CommentController.editCommentPost)
+);
+router.post(
+  "/delete/commentPost",
+  asyncHandler(CommentController.deleteCommentPost)
+);
 module.exports = router;

@@ -117,6 +117,13 @@ class PostService {
     const postDetail = await post
       .findById(postId)
       .populate("author", "firstName lastName avatar")
+      .populate({
+        path: "likes",
+        populate: {
+          path: "userId",
+          select: "firstName lastName avatar _id",
+        },
+      })
       .exec();
     if (!postDetail) {
       throw new BadRequestError("Post not found");
