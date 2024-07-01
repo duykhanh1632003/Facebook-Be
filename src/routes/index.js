@@ -9,5 +9,5 @@ router.use("/v1/api", require("./user"));
 router.use("/v1/api", require("./post"));
 router.use("/v1/api", require("./friend"));
 router.use("/v1/api", require("./comment"));
-
+router.use("", require("./google"));
 module.exports = router;

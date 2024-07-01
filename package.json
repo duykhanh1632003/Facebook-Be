@@ -29,6 +29,8 @@
     "mongoose": "^8.3.3",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^2.2.5",
+    "passport": "^0.7.0",
+    "passport-google-oauth2": "^0.2.0",
     "react-redux": "^9.1.1",
     "sequelize": "^6.32.1",
     "socket.io": "^4.7.5",

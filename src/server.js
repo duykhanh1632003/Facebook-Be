@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 const { default: helmet } = require("helmet");
 const compression = require("compression");
 require("dotenv").config();
-
+require("./authGoogle");
 let app = express();
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
