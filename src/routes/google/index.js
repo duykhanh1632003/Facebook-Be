@@ -10,8 +10,9 @@ router.get(
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/auth/google/success",
-    failureRedirect: "/auth/google/failure",
+    successRedirect: "http://localhost:5173/dashboard",
+    failureRedirect: "http://localhost:5173/login",
   })
 );
+
 module.exports = router;
