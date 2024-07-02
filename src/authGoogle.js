@@ -34,7 +34,7 @@ passport.use(
         );
 
         await KeyTokenService.createKeyToken({
-          user: foundUser._id,
+          userId: foundUser._id,
           refreshToken: tokens.refreshToken,
           privateKey,
           publicKey,

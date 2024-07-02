@@ -44,7 +44,7 @@ const authentication = asyncHandler(async (req, res, next) => {
     try {
       const decodedUser = jwt.verify(refreshToken, keyStore.privateKey);
       if (userId !== decodedUser.userId)
-        throw new AuthFailureError("Invalid user");
+        throw new NotFoundError("Invalid user");
 
       req.keyStore = keyStore;
       req.user = decodedUser;
