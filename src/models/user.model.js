@@ -10,10 +10,10 @@ const userSchema = new mongoose.Schema(
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String },
     phoneNumber: { type: String }, // Số điện thoại
     address: { type: String },
-    gender: { type: String, enum: ["male", "female", "other"], required: true }, // Giới tính
+    gender: { type: String, enum: ["male", "female", "other"] }, // Giới tính
     dateOfBirth: { type: Date }, // Ngày sinh
     avatar: {
       type: String,

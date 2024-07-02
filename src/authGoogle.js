@@ -4,6 +4,8 @@ const { createTokenPair } = require("./auth/authUtils");
 const KeyTokenService = require("./services/keyToken.service");
 require("./models/user.model");
 const OAuth2Strategy = require("passport-google-oauth2").Strategy;
+const crypto = require("crypto");
+
 passport.use(
   new OAuth2Strategy(
     {
@@ -14,9 +16,9 @@ passport.use(
     },
     async function (request, accessToken, refreshToken, profile, done) {
       try {
-        const foundUser = user.findOne({ email: profile.email }).exec();
+        let foundUser = await user.findOne({ email: profile.email }).exec();
         if (!foundUser) {
-          foundUser = user.create({
+          foundUser = await user.create({
             firstName: profile.given_name,
             lastName: profile.family_name,
             email: profile.email,
@@ -38,7 +40,9 @@ passport.use(
           publicKey,
         });
         done(null, { user: foundUser, tokens });
-      } catch (e) {}
+      } catch (e) {
+        done(e, null);
+      }
     }
   )
 );
@@ -46,6 +50,7 @@ passport.use(
 passport.serializeUser((user, done) => {
   done(null, user);
 });
+
 passport.deserializeUser((obj, done) => {
   done(null, obj);
 });

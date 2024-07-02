@@ -6,9 +6,18 @@ const compression = require("compression");
 require("dotenv").config();
 require("./authGoogle");
 let app = express();
+const session = require("express-session");
+const passport = require("passport");
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-
+app.use(
+  session({
+    secret: "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",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(passport.session());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
