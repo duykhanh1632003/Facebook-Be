@@ -8,6 +8,11 @@ const COLLECTION_NAME = "posts";
 const postSchema = new mongoose.Schema(
   {
     content: { type: String },
+    videoUrl: { type: String },
+    filename: {
+      type: String,
+      trim: true,
+    },
     image: { type: String },
     permission: {
       type: String,

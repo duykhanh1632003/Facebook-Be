@@ -1,7 +1,7 @@
 "use strict";
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("../helpers/asyncHandler");
-const { NotFoundError, AuthFailureError } = require("../core/error.response");
+const { NotFoundError, AuthFailError } = require("../core/error.response");
 const { findByUserId } = require("../services/keyToken.service");
 
 const HEADER = {
@@ -34,7 +34,7 @@ const createTokenPair = async (payload, publicKey, privateKey) => {
 
 const authentication = asyncHandler(async (req, res, next) => {
   const userId = req.headers[HEADER.CLIENT_ID];
-  if (!userId) throw new AuthFailureError("Invalid request: userId missing");
+  if (!userId) throw new NotFoundError("Invalid request: userId missing");
 
   const keyStore = await findByUserId(userId);
   if (!keyStore) throw new NotFoundError("KeyStore not found");
@@ -60,8 +60,7 @@ const authentication = asyncHandler(async (req, res, next) => {
 
   try {
     const decodedUser = jwt.verify(accessToken, keyStore.publicKey);
-    if (userId !== decodedUser.userId)
-      throw new AuthFailureError("Invalid user");
+    if (userId !== decodedUser.userId) throw new AuthFailError("Invalid user");
     req.userId = keyStore.userId;
     req.keyStore = keyStore;
     req.user = decodedUser;

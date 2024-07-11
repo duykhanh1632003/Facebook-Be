@@ -12,5 +12,6 @@ router.use("/v1/api", require("./friend"));
 router.use("/v1/api", require("./comment"));
 router.use("/v1/api", require("./redis"));
 router.use("/v1/api", require("./story"));
+router.use("/v1/api", require("./uploadSW3"));
 
 module.exports = router;

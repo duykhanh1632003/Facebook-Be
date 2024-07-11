@@ -35,20 +35,56 @@ class PostService {
   };
 
   static likedPost = async ({ userId, postId, type }) => {
-    const existingLike = await feelingPost.findOne({ userId, postId });
-    if (existingLike) {
-      await feelingPost.findByIdAndDelete(existingLike._id);
-      await post.updateOne(
-        { _id: postId },
-        { $pull: { likes: existingLike._id } }
-      );
-      return { message: "Like removed" };
-    } else {
-      const newLike = await feelingPost.create({ userId, postId, type });
-      await newLike.save();
-      await post.updateOne({ _id: postId }, { $push: { likes: newLike._id } });
+    const lockKey = `post:${postId}:like:lock`;
+    const lockTimeout = 5000; // 5 giây
 
-      return { message: "Like added" };
+    // Thử lấy khóa với thời gian hết hạn
+    const lockAcquired = await client.set(
+      lockKey,
+      userId,
+      "NX",
+      "PX",
+      lockTimeout
+    );
+    if (!lockAcquired) {
+      throw new Error("Could not acquire lock, please try again later");
+    }
+
+    try {
+      const existingLike = await feelingPost.findOne({ userId, postId });
+      const postKey = `post:${postId}:likes`;
+      await client.watch(postKey);
+      const multi = client.multi();
+
+      if (existingLike) {
+        await feelingPost.findByIdAndDelete(existingLike._id);
+        await post.updateOne(
+          { _id: postId },
+          { $pull: { likes: existingLike._id } }
+        );
+        multi.hdel(postKey, userId);
+      } else {
+        const newLike = await feelingPost.create({ userId, postId, type });
+        await newLike.save();
+        await post.updateOne(
+          { _id: postId },
+          { $push: { likes: newLike._id } }
+        );
+        multi.hset(postKey, userId, type);
+      }
+
+      const execResult = await multi.exec();
+      if (!execResult) {
+        throw new Error(
+          "Transaction failed due to data modification, please try again"
+        );
+      }
+      return existingLike
+        ? { message: "Like removed" }
+        : { message: "Like added" };
+    } finally {
+      // Giải phóng khóa
+      await client.del(lockKey);
     }
   };
 
@@ -147,6 +183,13 @@ class PostService {
   };
 
   static getAllImagesByUserId = async ({ userId }) => {
+    const cacheKey = `images:${userId}`;
+    const cachedImages = await client.get(cacheKey);
+
+    if (cachedImages) {
+      return JSON.parse(cachedImages);
+    }
+
     const posts = await post
       .find({ author: userId }, { image: 1, _id: 1 })
       .exec();
@@ -156,6 +199,8 @@ class PostService {
       }
       return acc;
     }, []);
+
+    await client.setEx(cacheKey, 3600, JSON.stringify(images));
     return images;
   };
 }

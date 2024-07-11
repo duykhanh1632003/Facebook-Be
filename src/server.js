@@ -33,7 +33,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use("", require("./routes/upload")); // Thêm route mới để upload S3
 
 // app.use("", require("./routes/redis"));
 app.use("", require("./routes/index"));
