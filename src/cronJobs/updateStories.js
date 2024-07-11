@@ -1,3 +1,6 @@
+const mongoose = require("mongoose");
+const { story } = require("../models/story.model");
+
 const updateStories = async () => {
   const now = new Date();
   const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
@@ -21,8 +24,8 @@ const startServerAndScript = async () => {
     console.log("Connected to MongoDB");
 
     // Chạy script cập nhật stories mỗi giờ
-    checkAndUpdateStories();
-    setInterval(checkAndUpdateStories, 1);
+    updateStories();
+    setInterval(updateStories, 3600000); // 1 giờ = 3600000 milliseconds
 
     // Khởi động server Express
     app.listen(3000, () => {

@@ -1,4 +1,9 @@
-const { GetObjectCommand, S3Client } = require("@aws-sdk/client-s3");
+const {
+  GetObjectCommand,
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 const s3Client = new S3Client({
@@ -17,4 +22,10 @@ async function getObjectUrl(key) {
   const url = await getSignedUrl(s3Client, command);
   return url;
 }
-module.exports = { getObjectUrl };
+module.exports = {
+  getObjectUrl,
+  s3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+  DeleteObjectCommand,
+};
