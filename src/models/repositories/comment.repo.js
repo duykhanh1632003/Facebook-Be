@@ -1,15 +1,44 @@
-const buildNestedComments = (comments) => {
-  const commentsById = {};
+const { comment } = require("../comment.model");
 
-  comments.forEach((comment) => {
-    commentsById[comment._id] = { ...comment.toObject(), children: [] };
-  });
+class CommentRepository {
+  async createComment({
+    message,
+    postId,
+    userId,
+    parentId,
+    childrenId,
+    likes,
+  }) {
+    return await comment.create({
+      message,
+      postId,
+      userId,
+      parentId,
+      childrenId,
+      likes,
+    });
+  }
 
-  comments.forEach((comment) => {
-    if (comment.parentId) {
-      commentsById[comment.parentId].children.push(commentsById[comment._id]);
-    }
-  });
-  return Object.values(commentsById).filter((comment) => !comment.parentId);
-};
-module.exports = { buildNestedComments };
+  async addReplyToComment(parentId, commentId) {
+    return await comment.findByIdAndUpdate(parentId, {
+      $push: { childrenId: commentId },
+    });
+  }
+
+  async findById(commentId) {
+    return await comment.findById(commentId);
+  }
+
+  async deleteComment(commentId) {
+    return await comment.findByIdAndDelete(commentId);
+  }
+
+  async findByPostId(postId) {
+    return await comment
+      .find({ postId })
+      .populate("userId", "firstName lastName avatar")
+      .exec();
+  }
+}
+
+module.exports = new CommentRepository();

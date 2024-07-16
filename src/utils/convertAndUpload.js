@@ -5,6 +5,7 @@ const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const { s3Client } = require("../db/init.sw3");
 const fs = require("fs-extra");
 const path = require("path");
+const { v4: uuidv4 } = require("uuid");
 
 const uploadToS3 = async (bucket, key, body, contentType) => {
   const command = new PutObjectCommand({
@@ -19,7 +20,7 @@ const uploadToS3 = async (bucket, key, body, contentType) => {
 
 const uploadVideo = async (file) => {
   const bucket = "khanh1632003";
-  const key = `videos/${file.originalname}`;
+  const key = `${uuidv4}-${file.originalname}`;
 
   try {
     await uploadToS3(bucket, key, file.buffer, file.mimetype);
@@ -30,7 +31,7 @@ const uploadVideo = async (file) => {
       Key: key,
     });
     const signedUrl = await getSignedUrl(s3Client, getObjectCommand, {
-      expiresIn: 3600, // URL expires in 1 hour
+      expiresIn: 36000, // URL expires in 1 hour
     });
 
     console.log(`Generated signed URL: ${signedUrl}`);

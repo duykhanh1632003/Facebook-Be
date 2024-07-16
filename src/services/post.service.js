@@ -1,26 +1,26 @@
 "use strict";
 
 const { BadRequestError } = require("../core/error.response");
-const { post } = require("../models/post.model");
-const { user } = require("../models/user.model");
-const { comment } = require("../models/comment.model");
-const friendList = require("../models/friendList");
-const { feelingPost } = require("../models/feelingPost.model");
-const mongoose = require("mongoose");
-const { likeComment } = require("../models/likeComment.model");
-const { buildNestedComments } = require("../models/repositories/comment.repo");
+const postRepository = require("../models/repositories/post.repo");
+const userRepository = require("../models/repositories/user.repository");
+const commentRepository = require("../models/repositories/comment.repo");
+const friendListRepository = require("../models/repositories/friendList.repository");
+const feelingPostRepository = require("../models/repositories/feelingPost.repository");
 const client = require("../db/init.redis");
 
 class PostService {
-  static createPost = async ({
-    content,
-    image,
-    author,
-    likedPost,
-    comments,
-    share,
-  }) => {
-    const newPost = await post.create({
+  static instance;
+
+  constructor() {
+    if (PostService.instance) {
+      return PostService.instance;
+    }
+
+    PostService.instance = this;
+  }
+
+  async createPost({ content, image, author, likedPost, comments, share }) {
+    const newPost = await postRepository.createPost({
       content,
       image,
       author,
@@ -32,45 +32,28 @@ class PostService {
       throw new BadRequestError("Cannot create post");
     }
     return newPost;
-  };
+  }
 
-  static likedPost = async ({ userId, postId, type }) => {
+  async likedPost({ userId, postId, type }) {
     const lockKey = `post:${postId}:like:lock`;
-    const lockTimeout = 5000; // 5 giây
-
-    // Thử lấy khóa với thời gian hết hạn
-    const lockAcquired = await client.set(
-      lockKey,
-      userId,
-      "NX",
-      "PX",
-      lockTimeout
-    );
-    if (!lockAcquired) {
-      throw new Error("Could not acquire lock, please try again later");
-    }
+    const lockTimeout = 5000;
 
     try {
-      const existingLike = await feelingPost.findOne({ userId, postId });
-      const postKey = `post:${postId}:likes`;
-      await client.watch(postKey);
-      const multi = client.multi();
-
+      const existingLike = await feelingPostRepository.findOne({
+        userId,
+        postId,
+      });
       if (existingLike) {
-        await feelingPost.findByIdAndDelete(existingLike._id);
-        await post.updateOne(
-          { _id: postId },
-          { $pull: { likes: existingLike._id } }
-        );
-        multi.hdel(postKey, userId);
+        await feelingPostRepository.findByIdAndDelete(existingLike._id);
+        await postRepository.updateLikes(postId, existingLike._id, "pull");
       } else {
-        const newLike = await feelingPost.create({ userId, postId, type });
+        const newLike = await feelingPostRepository.create({
+          userId,
+          postId,
+          type,
+        });
         await newLike.save();
-        await post.updateOne(
-          { _id: postId },
-          { $push: { likes: newLike._id } }
-        );
-        multi.hset(postKey, userId, type);
+        await postRepository.updateLikes(postId, newLike._id, "push");
       }
 
       const execResult = await multi.exec();
@@ -83,74 +66,53 @@ class PostService {
         ? { message: "Like removed" }
         : { message: "Like added" };
     } finally {
-      // Giải phóng khóa
       await client.del(lockKey);
     }
-  };
+  }
 
-  static savePost = async ({ userId, postId }) => {
-    const existingPost = await post.findById(postId);
+  async savePost({ userId, postId }) {
+    const existingPost = await postRepository.findById(postId);
     if (!existingPost) {
       throw new Error("Post does not exist");
     }
-    const findUser = await user.findById(userId);
+    const findUser = await userRepository.findById(userId);
     if (!findUser) {
       throw new BadRequestError("User not found");
     }
     const isSaved = findUser.savePosts.includes(postId);
     if (isSaved) {
-      findUser.savePosts = findUser.savePosts.filter((id) => id !== userId);
+      findUser.savePosts = findUser.savePosts.filter((id) => id !== postId);
     } else {
       findUser.savePosts.push(postId);
     }
     await findUser.save();
-  };
+  }
 
-  static handleGetAllPosts = async ({ userId, page = 1, limit = 10 }) => {
+  async handleGetAllPosts({ userId, page = 1, limit = 10 }) {
     const skip = (page - 1) * limit;
     const cacheKey = `post:${userId}:${page}:${limit}`;
     const cachedPosted = await client.get(cacheKey);
-    console.log("Check cacheKey", cacheKey);
     if (cachedPosted) {
-      console.log("cachedPosted found:", cachedPosted);
       return JSON.parse(cachedPosted);
-    } else {
-      console.log("No cached data found for key:", cacheKey);
     }
 
-    // Get friend list
-    const friendLists = await friendList.find({ user: userId });
+    const friendLists = await friendListRepository.findByUserId(userId);
     const friendIds = friendLists.reduce(
       (acc, fl) => acc.concat(fl.friends),
       []
     );
+    friendIds.push(userId);
 
-    // Add user's own ID to friend list
-    friendIds.push(new mongoose.Types.ObjectId(userId));
-
-    // Find posts by friends
-    const posts = await post
-      .find({ author: { $in: friendIds } })
-      .populate("author", "firstName lastName avatar")
-      .sort({ createdAt: -1 }) // Optionally, sort by creation date
-      .skip(skip)
-      .limit(limit)
-      .exec();
+    const posts = await postRepository.findPostsByAuthors(
+      friendIds,
+      skip,
+      limit
+    );
 
     const postsWithCommentsAndLikes = await Promise.all(
       posts.map(async (p) => {
-        const comments = await comment
-          .find({ postId: p._id })
-          .populate("userId", "firstName lastName avatar");
-
-        const likes = await Promise.all(
-          p.likes.map(async (likeId) => {
-            const like = await feelingPost
-              .findById(likeId)
-              .populate("userId", "firstName lastName avatar");
-            return like;
-          })
-        );
+        const comments = await commentRepository.findByPostId(p._id);
+        const likes = await feelingPostRepository.findLikesByIds(p.likes);
         const response = { ...p._doc, comments, likes };
         await client.setEx(cacheKey, 3600, JSON.stringify(response));
         return response;
@@ -158,31 +120,18 @@ class PostService {
     );
 
     return postsWithCommentsAndLikes;
-  };
+  }
 
-  static handleGetDetailPost = async (postId) => {
-    const postDetail = await post
-      .findById(postId)
-      .populate("author", "firstName lastName avatar")
-      .populate({
-        path: "likes",
-        populate: {
-          path: "userId",
-          select: "firstName lastName avatar _id",
-        },
-      })
-      .exec();
+  async handleGetDetailPost(postId) {
+    const postDetail = await postRepository.findDetailById(postId);
     if (!postDetail) {
       throw new BadRequestError("Post not found");
     }
-    const comments = await comment
-      .find({ postId: postId })
-      .populate("userId", "firstName lastName avatar _id")
-      .exec();
+    const comments = await commentRepository.findByPostId(postId);
     return { postDetail, comments };
-  };
+  }
 
-  static getAllImagesByUserId = async ({ userId }) => {
+  async getAllImagesByUserId({ userId }) {
     const cacheKey = `images:${userId}`;
     const cachedImages = await client.get(cacheKey);
 
@@ -190,9 +139,7 @@ class PostService {
       return JSON.parse(cachedImages);
     }
 
-    const posts = await post
-      .find({ author: userId }, { image: 1, _id: 1 })
-      .exec();
+    const posts = await postRepository.findImagesByUserId(userId);
     const images = posts.reduce((acc, post) => {
       if (post.image) {
         acc.push(post.image);
@@ -202,7 +149,7 @@ class PostService {
 
     await client.setEx(cacheKey, 3600, JSON.stringify(images));
     return images;
-  };
+  }
 }
 
-module.exports = PostService;
+module.exports = new PostService();

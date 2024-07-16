@@ -1,21 +1,28 @@
 "use strict";
 
-const { comment } = require("../models/comment.model");
-const { post } = require("../models/post.model");
-const { user } = require("../models/user.model");
-const { likeComment } = require("../models/likeComment.model");
+const userRepository = require("../models/repositories/user.repository");
 const { BadRequestError } = require("../core/error.response");
+const commentRepository = require("../models/repositories/comment.repo");
 
 class CommentService {
-  static createNewCommentPost = async ({
+  static instance;
+
+  constructor() {
+    if (CommentService.instance) {
+      return CommentService.instance;
+    }
+
+    CommentService.instance = this;
+  }
+
+  async createNewCommentPost({
     message,
     postId,
     userId,
     parentId = null,
     childrenId = [],
-  }) => {
-    // Tạo comment mới
-    const newComment = await comment.create({
+  }) {
+    const newComment = await commentRepository.createComment({
       message,
       postId,
       userId,
@@ -24,11 +31,10 @@ class CommentService {
       likes: [],
     });
 
-    // Lấy thông tin người dùng
-    const userInfo = await user
-      .findById(userId)
-      .select("firstName lastName avatar")
-      .exec();
+    const userInfo = await userRepository.findById(
+      userId,
+      "firstName lastName avatar"
+    );
 
     if (!newComment) {
       throw new BadRequestError("Cannot create new comment");
@@ -37,14 +43,10 @@ class CommentService {
       throw new BadRequestError("User not found");
     }
 
-    // Nếu comment là reply thì cập nhật childrenId của parent comment
     if (parentId) {
-      await comment.findByIdAndUpdate(parentId, {
-        $push: { childrenId: newComment._id },
-      });
+      await commentRepository.addReplyToComment(parentId, newComment._id);
     }
 
-    // Kết hợp thông tin bình luận và người dùng
     const response = {
       ...newComment.toObject(),
       userId: {
@@ -55,22 +57,21 @@ class CommentService {
       },
     };
 
-    console.log("check avt", response);
     return response;
-  };
+  }
 
-  static editCommentPost = async ({ message, commentId }) => {
-    const foundComment = await comment.findById(commentId);
+  async editCommentPost({ message, commentId }) {
+    const foundComment = await commentRepository.findById(commentId);
     if (!foundComment) {
       throw new BadRequestError("Comment not found");
     }
     foundComment.message = message;
     await foundComment.save();
-  };
-  static deleteCommentPost = async ({ commentId }) => {
-    console.log("Check commnet,comment", commentId);
+  }
+
+  async deleteCommentPost({ commentId }) {
     const deleteCommentsRecursive = async (commentId) => {
-      const foundComment = await comment.findById(commentId);
+      const foundComment = await commentRepository.findById(commentId);
       if (!foundComment) {
         throw new BadRequestError("Comment not found");
       }
@@ -79,10 +80,10 @@ class CommentService {
           await deleteCommentsRecursive(childId);
         }
       }
-      await comment.findByIdAndDelete(commentId);
+      await commentRepository.deleteComment(commentId);
     };
     await deleteCommentsRecursive(commentId);
-  };
+  }
 }
 
-module.exports = CommentService;
+module.exports = new CommentService();
