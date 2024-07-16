@@ -1,7 +1,6 @@
 "use strict";
 const { BadRequestError } = require("../core/error.response.js");
 const { CREATED, SuccessResponse } = require("../core/success.response.js");
-const uploadImageFromUrl = require("../services/upload.service.js");
 const {
   uploadImageFromLocalToS3,
 } = require("../services/uploadAWS.service.js");
@@ -18,7 +17,7 @@ class UploadSW3Controller {
       metadata: await uploadImageFromLocalToS3({
         path: file.path,
       }),
-    });
+    }).send(res);
   };
   uploadVideoToS3 = async (req, res, next) => {
     const { file } = req;

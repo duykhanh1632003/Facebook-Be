@@ -10,6 +10,8 @@ require("dotenv").config();
 require("./authGoogle");
 require("./db/init.db");
 require("./db/init.sw3");
+// require("./db/init.es");
+
 const redisClient = require("./db/init.redis");
 
 const app = express();

@@ -7,7 +7,15 @@ const uploadSW3Controller = require("../../controllers/uploadSW3.controller");
 const router = express.Router();
 
 router.use(authentication);
-router.post("/upload/video", asyncHandler(uploadSW3Controller.uploadVideoToS3));
-router.post("/upload/disk", asyncHandler(uploadSW3Controller.uploadFileThumb));
+router.post(
+  "/upload/video",
+  uploadMemory.single("video"),
+  asyncHandler(uploadSW3Controller.uploadVideoToS3)
+);
+router.post(
+  "/upload/disk",
+  uploadDisk.single("file"),
+  asyncHandler(uploadSW3Controller.uploadFileThumb)
+);
 
 module.exports = router;

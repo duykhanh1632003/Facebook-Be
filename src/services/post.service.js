@@ -31,6 +31,7 @@ class PostService {
     if (!newPost) {
       throw new BadRequestError("Cannot create post");
     }
+    // await ElasticsearchService.indexPost(newPost);
     return newPost;
   }
 
