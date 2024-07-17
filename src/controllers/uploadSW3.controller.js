@@ -22,10 +22,9 @@ class UploadSW3Controller {
   };
 
   uploadVideoToS3 = async (req, res, next) => {
-    console.log("check req", req);
     const { file } = req;
     const { content, author } = req.body;
-    
+
     if (!file) {
       throw new BadRequestError("Cannot have file");
     }

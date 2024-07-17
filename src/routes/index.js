@@ -13,5 +13,6 @@ router.use("/v1/api", require("./comment"));
 router.use("/v1/api", require("./redis"));
 router.use("/v1/api", require("./story"));
 router.use("/v1/api", require("./uploadSW3"));
+router.use("/v1/api", require("./watch"));
 
 module.exports = router;

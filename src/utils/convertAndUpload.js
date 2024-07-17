@@ -27,7 +27,7 @@ const uploadVideo = async (file) => {
   const randomId = generateRandomId(keyLength);
   const key = `${randomId}-${file.originalname}`;
 
-  try {
+  try { 
     await uploadToS3(bucket, key, file.buffer, file.mimetype);
 
     // Generate a signed URL for the uploaded video file
