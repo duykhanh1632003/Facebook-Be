@@ -16,7 +16,7 @@ const postVideoSchema = new mongoose.Schema(
     },
     view: { type: Number, default: 0 },
     author: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "feelingPost" }],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "feelingPost"}],
     share: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "comment" }],
   },

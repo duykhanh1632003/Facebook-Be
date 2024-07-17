@@ -30,9 +30,7 @@ const uploadVideo = async (file) => {
       Bucket: bucket,
       Key: key,
     });
-    const signedUrl = await getSignedUrl(s3Client, getObjectCommand, {
-      expiresIn: 36000, // URL expires in 1 hour
-    });
+    const signedUrl = await getSignedUrl(s3Client, getObjectCommand);
 
     console.log(`Generated signed URL: ${signedUrl}`);
     return signedUrl;

@@ -1,9 +1,11 @@
 "use strict";
 
-const { PutObjectCommand } = require("@aws-sdk/client-s3");
+const { PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner"); // Cập nhật đúng thư viện
 const { s3Client } = require("../db/init.sw3");
 const uploadVideo = require("../utils/convertAndUpload");
+const { BadRequestError } = require("../core/error.response");
+const { postVideo } = require("../models/post.video.model");
 
 const urlImagePublic = "https://d28nogkts3esfg.cloudfront.net";
 
@@ -37,12 +39,23 @@ const uploadImageFromLocalToS3 = async (file) => {
   }
 };
 
-const uploadVideoToS3 = async (file) => {
+const uploadVideoToS3 = async (file, content, author) => {
   try {
     if (!file) {
       throw new Error("file not found");
     }
     const videoUrl = await uploadVideo(file);
+    const saveVideo = await postVideo.create({
+      content: content,
+      videoUrl: videoUrl,
+      author,
+      likes: [],
+      share: [],
+      comments: [],
+    });
+    if (!saveVideo) {
+      throw new BadRequestError("Cannot save video to db");
+    }
     return {
       url: videoUrl,
     };
@@ -52,4 +65,20 @@ const uploadVideoToS3 = async (file) => {
   }
 };
 
-module.exports = { uploadImageFromLocalToS3, uploadVideoToS3 };
+const getVideoFromKey = async (key) => {
+  const bucket = "duykhanh1632003";
+  try {
+    const getObjectCommand = new GetObjectCommand({ Bucket: bucket, Key: key });
+    const signedUrl = getSignedUrl(s3Client, getObjectCommand, {
+      expiresIn: 3600, // URL expires in 1 hour
+    });
+    if (!signedUrl) {
+      throw BadRequestError("Cannot get signedUrl");
+    }
+    return signedUrl;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+module.exports = { uploadImageFromLocalToS3, uploadVideoToS3, getVideoFromKey };

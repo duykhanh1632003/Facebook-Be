@@ -3,6 +3,7 @@ const { BadRequestError } = require("../core/error.response.js");
 const { CREATED, SuccessResponse } = require("../core/success.response.js");
 const {
   uploadImageFromLocalToS3,
+  uploadVideoToS3,
 } = require("../services/uploadAWS.service.js");
 const uploadVideo = require("../utils/convertAndUpload.js");
 
@@ -19,12 +20,14 @@ class UploadSW3Controller {
       }),
     }).send(res);
   };
+
   uploadVideoToS3 = async (req, res, next) => {
     const { file } = req;
+    const { content, author } = req.body; // Lấy title từ request body
     if (!file) {
       throw new BadRequestError("Cannot have file");
     }
-    const result = await uploadVideo(file);
+    const result = await uploadVideoToS3(file, content, author);
     new SuccessResponse({
       message: "Upload success",
       metadata: result,
