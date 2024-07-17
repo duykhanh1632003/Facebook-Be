@@ -39,26 +39,28 @@ const uploadImageFromLocalToS3 = async (file) => {
   }
 };
 
-const uploadVideoToS3 = async (file, content, author) => {
+const uploadVideoToS3 = async ({ file, content, author }) => {
   try {
     if (!file) {
       throw new Error("file not found");
     }
+
     const videoUrl = await uploadVideo(file);
+
     const saveVideo = await postVideo.create({
-      content: content,
-      videoUrl: videoUrl,
+      content,
+      videoUrl,
       author,
       likes: [],
       share: [],
       comments: [],
     });
+
     if (!saveVideo) {
       throw new BadRequestError("Cannot save video to db");
     }
-    return {
-      url: videoUrl,
-    };
+
+    return { url: videoUrl };
   } catch (e) {
     console.error("Error uploading video to S3:", e);
     throw e;
