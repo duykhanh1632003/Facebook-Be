@@ -1,4 +1,3 @@
-"use strict";
 const express = require("express");
 const asyncHandler = require("../../helpers/asyncHandler");
 const { authentication } = require("../../auth/authUtils");
@@ -7,7 +6,14 @@ const router = express.Router();
 
 router.use(authentication);
 
-router.get("/get/allVideo", asyncHandler(watchController.handleGetAllPostsVideo));
-router.post("/upload/video/firebase", asyncHandler(watchController.postVideoFromUser));
+router.get(
+  "/get/allVideo",
+  asyncHandler(watchController.handleGetAllPostsVideo)
+);
+router.post(
+  "/upload/video/firebase",
+  asyncHandler(watchController.postVideoFromUser)
+);
+router.post("/incrementView", asyncHandler(watchController.incrementVideoView)); // New route
 
 module.exports = router;

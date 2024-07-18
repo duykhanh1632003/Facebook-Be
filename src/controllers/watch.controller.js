@@ -34,6 +34,14 @@ class WatchController {
       next(error);
     }
   };
+  incrementVideoView = async (req, res, next) => {
+    const { videoId } = req.body;
+    const response = await WatchPostService.incrementVideoView(videoId);
+    new SuccessResponse({
+      message: "Video view incremented",
+      metadata: response,
+    }).send(res);
+  };
 }
 
 module.exports = new WatchController();

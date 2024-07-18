@@ -35,6 +35,15 @@ class WatchPostService {
 
     return saveVideo;
   };
+  static incrementVideoView = async (videoId) => {
+    const video = await postVideo.findById(videoId);
+    if (!video) {
+      throw new BadRequestError("Video not found");
+    }
+    video.view += 1;
+    await video.save();
+    return video;
+  };
 }
 
 module.exports = WatchPostService;
