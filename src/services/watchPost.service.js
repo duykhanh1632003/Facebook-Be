@@ -18,6 +18,23 @@ class WatchPostService {
       .exec();
     return posts;
   };
+
+  static postVideoFromUser = async ({ content, videoUrl, author }) => {
+    const saveVideo = await postVideo.create({
+      content,
+      videoUrl,
+      author,
+      likes: [],
+      share: [],
+      comments: [],
+    });
+
+    if (!saveVideo) {
+      throw new BadRequestError("Cannot save video to db");
+    }
+
+    return saveVideo;
+  };
 }
 
 module.exports = WatchPostService;
