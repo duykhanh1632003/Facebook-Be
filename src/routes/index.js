@@ -14,5 +14,5 @@ router.use("/v1/api", require("./redis"));
 router.use("/v1/api", require("./story"));
 router.use("/v1/api", require("./uploadSW3"));
 router.use("/v1/api", require("./watch"));
-
+router.use("/v1/api", require("./tinder"));
 module.exports = router;

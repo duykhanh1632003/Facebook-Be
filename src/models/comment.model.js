@@ -3,8 +3,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema; // Add this line to import Schema from mongoose
 
-const DOCUMENT_NAME = "comment";
-const COLLECTION_NAME = "comments";
+  const DOCUMENT_NAME = "comment";
+  const COLLECTION_NAME = "comments";
 
 const commentSchema = new Schema( // Use Schema instead of mongoose.Schema
   {
