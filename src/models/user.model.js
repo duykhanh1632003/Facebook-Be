@@ -5,6 +5,90 @@ const mongoose = require("mongoose");
 const DOCUMENT_NAME = "user";
 const COLLECTION_NAME = "users";
 
+const workOfUser = new mongoose.Schema({
+  nameOfCompany: { type: String, require: true },
+  position: { type: String, require: true },
+  yearStart: { type: Number },
+  yearEnd: { type: Number },
+  visibility: {
+    type: String,
+    enum: ["private", "friend", "public"],
+    default: "public",
+  },
+});
+
+const university = new mongoose.Schema({
+  name: { type: String, require: true },
+  yearStart: { type: Number },
+  yearEnd: { type: Number },
+  specialized: { type: String },
+  visibility: {
+    type: String,
+    enum: ["private", "friend", "public"],
+    default: "public",
+  },
+});
+
+const highSchool = new mongoose.Schema({
+  name: { type: String, require: true },
+  yearStart: { type: Number },
+  yearEnd: { type: Number },
+  visibility: {
+    type: String,
+    enum: ["private", "friend", "public"],
+    default: "public",
+  },
+});
+
+const currentCity = new mongoose.Schema({
+  name: { type: String },
+  visibility: {
+    type: String,
+    enum: ["private", "friend", "public"],
+    default: "public",
+  },
+});
+
+const oldCity = new mongoose.Schema({
+  name: { type: String },
+  visibility: {
+    type: String,
+    enum: ["private", "friend", "public"],
+    default: "public",
+  },
+});
+
+const linkOfSocial = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: ["github", "facebook", "twitter", "instagram", "youtube", "tiktok"],
+  },
+  link: {
+    type: String,
+  },
+  visibility: {
+    type: String,
+    enum: ["private", "friend", "public"],
+    default: "public",
+  },
+});
+
+const dateOfBirth = new mongoose.Schema({
+  birthDate: {
+    type: String, // Sử dụng chuỗi để lưu ngày tháng theo định dạng "16 tháng 3"
+    required: true,
+  },
+  birthYear: {
+    type: Number,
+    required: true,
+  },
+  visibility: {
+    type: String,
+    enum: ["private", "friend", "public"],
+    default: "public",
+  },
+});
+
 const userSchema = new mongoose.Schema(
   {
     firstName: { type: String, required: true },
@@ -14,7 +98,6 @@ const userSchema = new mongoose.Schema(
     phoneNumber: { type: String }, // Số điện thoại
     address: { type: String },
     gender: { type: String, enum: ["male", "female", "other"] }, // Giới tính
-    dateOfBirth: { type: Date }, // Ngày sinh
     avatar: {
       type: String,
       default:
@@ -24,7 +107,18 @@ const userSchema = new mongoose.Schema(
       type: [{ type: mongoose.Schema.Types.ObjectId, ref: "post" }],
       default: [],
     },
+    work: [workOfUser],
+    universities: [university],
+    highSchools: [highSchool],
+    currentCity: currentCity,
+    oldCity: oldCity,
+    socialLinks: [linkOfSocial],
+    dateOfBirth: dateOfBirth,
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    collection: COLLECTION_NAME,
+  }
 );
+
 module.exports = { user: mongoose.model(DOCUMENT_NAME, userSchema) };
