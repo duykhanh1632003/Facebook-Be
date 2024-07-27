@@ -13,7 +13,7 @@ const HEADER = {
 
 const createTokenPair = async (payload, publicKey, privateKey) => {
   try {
-    const accessToken = jwt.sign(payload, publicKey, { expiresIn: "2 days" });
+    const accessToken = jwt.sign(payload, publicKey, { expiresIn: "7 days" });
     const refreshToken = jwt.sign(payload, privateKey, { expiresIn: "7 days" });
 
     // Uncomment this if you need to verify tokens during creation
