@@ -34,9 +34,12 @@ const productSchema = new mongoose.Schema(
       max: [5, "Rating must be below 5.0"],
       set: (val) => Math.round(val * 10) / 10,
     },
+    images: [{ type: String }],
     isDraft: { type: Boolean, default: true, index: true, select: false },
     isPublished: { type: Boolean, default: false, index: true, select: false },
     product_variations: [productVariationSchema],
+    orders_count: { type: Number, default: 0 },
+    favorites_count: { type: Number, default: 0 },
   },
   {
     collection: COLLECTION_NAME,
@@ -51,4 +54,4 @@ productSchema.pre("save", function (next) {
 
 productSchema.index({ product_name: "text", product_description: "text" });
 
-module.exports = mongoose.model(DOCUMENT_NAME, productSchema);
+module.exports = { product: mongoose.model(DOCUMENT_NAME, productSchema) };
