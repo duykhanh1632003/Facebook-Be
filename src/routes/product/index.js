@@ -6,7 +6,7 @@ const productController = require("../../controllers/product.controller");
 const router = express.Router();
 
 router.use(authentication);
-
 router.post("/products/create", asyncHandler(productController.createProduct));
+router.post("/new/attributes", asyncHandler(productController.createAttributes));
 
 module.exports = router;
