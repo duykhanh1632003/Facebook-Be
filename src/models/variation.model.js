@@ -6,6 +6,7 @@ const DOCUMENT_NAME = "variation";
 const COLLECTION_NAME = "variations";
 
 const attributeSchema = new mongoose.Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true }, // Thêm dòng này để có _id
   category: { type: String, required: true },
   value: { type: String, required: true },
 });
