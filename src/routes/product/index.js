@@ -24,7 +24,7 @@ router.delete(
   "/delete/product/:product_id",
   asyncHandler(productController.deleteAProduct)
 );
-router.get("/get/attributes", asyncHandler(productController.deleteAProduct));
+router.get("/get/attributes", asyncHandler(productController.getAttributes));
 router.put(
   "/update/attribute/:attributeId",
   asyncHandler(productController.updateAttribute)

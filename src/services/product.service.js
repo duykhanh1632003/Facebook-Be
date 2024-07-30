@@ -33,7 +33,6 @@ class ProductService {
       const products = await product
         .find({ product_user: userObjectId })
         .select("+isDraft +isPublished");
-      console.log("Check products", products);
       return products.length > 0 ? products : [];
     } catch (e) {
       throw new Error("Error getting products: " + e.message);
