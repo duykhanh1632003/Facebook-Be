@@ -14,6 +14,42 @@ class ProductController {
     }
   };
 
+  getAllProductOfUser = async (req, res, next) => {
+    try {
+      const data = await ProductService.getAllProductOfUser(req.user.userId);
+      new SuccessResponse({
+        message: "Product created successfully",
+        metadata: data,
+      }).send(res);
+    } catch (error) {
+      next(error);
+    }
+  };
+  deleteAProduct = async (req, res, next) => {
+    try {
+      const { product_id } = req.params;
+      await ProductService.deleteAProduct(product_id);
+      new SuccessResponse({
+        message: "delete product successfully",
+      }).send(res);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  changeStatusProduct = async (req, res, next) => {
+    try {
+      const { product_id } = req.params;
+      const data = await ProductService.changeStatusProduct({ product_id });
+      new SuccessResponse({
+        message: "Product created successfully",
+        metadata: data,
+      }).send(res);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   createAttributes = async (req, res, next) => {
     try {
       const data = req.body;
@@ -75,7 +111,7 @@ class ProductController {
       }).send(res);
     } catch (error) {
       next(error);
-    } 
+    }
   };
 }
 

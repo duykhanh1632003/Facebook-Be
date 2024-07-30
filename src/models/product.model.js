@@ -13,6 +13,7 @@ const productVariationSchema = new mongoose.Schema({
   attributes: [attributeSchema],
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
+  orders_count: { type: Number, default: 0 },
 });
 
 const productSchema = new mongoose.Schema(
@@ -26,7 +27,11 @@ const productSchema = new mongoose.Schema(
       required: true,
       enum: ["electronic", "clothing", "furniture", "book", "sports", "beauty"],
     },
-    product_user: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    product_user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
     product_ratingsAverage: {
       type: Number,
       default: 4.5,
@@ -38,7 +43,6 @@ const productSchema = new mongoose.Schema(
     isDraft: { type: Boolean, default: true, index: true, select: false },
     isPublished: { type: Boolean, default: false, index: true, select: false },
     product_variations: [productVariationSchema],
-    orders_count: { type: Number, default: 0 },
     favorites_count: { type: Number, default: 0 },
   },
   {
