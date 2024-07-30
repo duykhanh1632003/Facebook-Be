@@ -9,6 +9,14 @@ class RedisController {
       res
     );
   };
+
+  handleGetBook = async (req, res, next) => {
+    const { name } = req.body;
+    const data = await RedisService.handleGetBook(name);
+    new SuccessResponse({ message: "post book success", metadata: data }).send(
+      res
+    );
+  };
 }
 
 module.exports = new RedisController();

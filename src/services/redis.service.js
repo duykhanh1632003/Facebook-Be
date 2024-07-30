@@ -1,28 +1,26 @@
-"use strict";
-
+const redis = require("redis");
 const client = require("../db/init.redis");
 
 class RedisService {
-  static handlePostBook = async ({ title, name, author }) => {
-    if (!title || !name || !author) {
-      return res
-        .status(400)
-        .json({ message: "Title, name, and author are required" });
-    }
+  static async handlePostBook(bookData) {
+    // Lưu dữ liệu sách vào Redis
+    return new Promise((resolve, reject) => {
+      client.set(bookData.name, JSON.stringify(bookData), (err, reply) => {
+        if (err) reject(err);
+        resolve(reply);
+      });
+    });
+  }
 
-    const book = { title, name, author };
-    const key = `book:${name}`;
-
-    try {
-      await client.lPush("kakakaa", 3600, 2); // Lưu vào cache với thời gian hết hạn là 1 giờ
-      res.status(201).json({ message: "Book saved successfully", book });
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  };
-
-
-  
-}
+  static async handleGetBook(name) {
+    // Lấy dữ liệu sách từ Redis
+    return new Promise((resolve, reject) => {
+      client.get(name, (err, reply) => {
+        if (err) reject(err);
+        resolve(JSON.parse(reply));
+      });
+    });
+  }
+} 
 
 module.exports = RedisService;

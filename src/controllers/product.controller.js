@@ -1,118 +1,30 @@
-const { CREATED, SuccessResponse } = require("../core/success.response");
-const ProductService = require("../services/product.service");
+const RedisService = require("../services/redis.service");
+const { SuccessResponse } = require("../core/success.response.js");
 
-class ProductController {
-  createProduct = async (req, res, next) => {
+class RedisController {
+  async handlePostBook(req, res, next) {
     try {
-      const data = await ProductService.createProduct(req.body);
+      const data = await RedisService.handlePostBook(req.body);
       new SuccessResponse({
-        message: "Product created successfully",
-        data,
-      }).send(res);
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  getAllProductOfUser = async (req, res, next) => {
-    try {
-      const data = await ProductService.getAllProductOfUser(req.user.userId);
-      new SuccessResponse({
-        message: "Product created successfully",
+        message: "Post book success",
         metadata: data,
       }).send(res);
     } catch (error) {
       next(error);
     }
-  };
-  deleteAProduct = async (req, res, next) => {
-    try {
-      const { product_id } = req.params;
-      await ProductService.deleteAProduct(product_id);
-      new SuccessResponse({
-        message: "delete product successfully",
-      }).send(res);
-    } catch (error) {
-      next(error);
-    }
-  };
+  }
 
-  changeStatusProduct = async (req, res, next) => {
+  async handleGetBook(req, res, next) {
     try {
-      const { product_id } = req.params;
-      const data = await ProductService.changeStatusProduct({ product_id });
-      new SuccessResponse({
-        message: "Product created successfully",
-        metadata: data,
-      }).send(res);
+      const { name } = req.params;
+      const data = await RedisService.handleGetBook(name);
+      new SuccessResponse({ message: "Get book success", metadata: data }).send(
+        res
+      );
     } catch (error) {
       next(error);
     }
-  };
-
-  createAttributes = async (req, res, next) => {
-    try {
-      const data = req.body;
-      const response = await ProductService.createAttributes({
-        data,
-        userId: req.user.userId,
-      });
-      new SuccessResponse({
-        message: "Attributes created successfully",
-        data: response,
-      }).send(res);
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  getAttributes = async (req, res, next) => {
-    try {
-      const response = await ProductService.getAttributes({
-        userId: req.user.userId,
-      });
-      console.log("Check res", response);
-      new SuccessResponse({
-        message: "Get attributes successfully",
-        metadata: response,
-      }).send(res);
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  updateAttribute = async (req, res, next) => {
-    try {
-      const { attributeId, newValue } = req.body;
-      const response = await ProductService.updateAttributes({
-        userId: req.user.userId,
-        attributeId,
-        newValue,
-      });
-      new SuccessResponse({
-        message: "Attribute updated successfully",
-        data: response,
-      }).send(res);
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  deleteAttribute = async (req, res, next) => {
-    try {
-      const { attributeId } = req.params;
-      const response = await ProductService.deleteAttribute({
-        userId: req.user.userId,
-        attributeId,
-      });
-      new SuccessResponse({
-        message: "Attribute deleted successfully",
-        data: response,
-      }).send(res);
-    } catch (error) {
-      next(error);
-    }
-  };
+  }
 }
 
-module.exports = new ProductController();
+module.exports = new RedisController();
