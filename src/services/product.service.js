@@ -1,123 +1,79 @@
-const { BadRequestError } = require("../core/error.response");
-const { variation } = require("../models/variation.model");
-const { product } = require("../models/product.model");
-const { default: mongoose } = require("mongoose");
+const redis = require("redis");
+const client = require("../db/init.redis");
 
-class ProductService {
-  static async createProduct(data) {
-    try {
-      const { attributes, combinations } = data;
+class RedisService {
+  static async acquireLock(lockName, timeout = 5000) {
+    const lockKey = `lock:${lockName}`;
+    const end = Date.now() + timeout;
 
-      if (attributes && combinations) {
-        data.product_variations = combinations.map((combination, index) => ({
-          attributes: attributes.map((attr) => ({
-            category: attr.category,
-            value: attr.value.split(",")[index % attr.value.split(",").length],
-          })),
-          price: parseFloat(combination.price),
-          quantity: parseInt(combination.quantity, 10),
-        }));
+    while (Date.now() < end) {
+      const result = await new Promise((resolve, reject) => {
+        client.set(lockKey, "locked", "NX", "PX", timeout, (err, reply) => {
+          if (err) reject(err);
+          resolve(reply);
+        });
+      });
+
+      if (result === "OK") {
+        return true;
       }
 
-      const newProduct = await product.create(data);
-      return newProduct;
-    } catch (error) {
-      throw new Error("Error creating product: " + error.message);
+      // Wait for a short time before retrying
+      await new Promise((resolve) => setTimeout(resolve, 50));
     }
+
+    return false;
   }
 
-  static async getAllProductOfUser(userId) {
-    try {
-      console.log("Check user", userId);
-      const userObjectId = new mongoose.Types.ObjectId(userId);
-      const products = await product
-        .find({ product_user: userObjectId })
-        .select("+isDraft +isPublished");
-      return products.length > 0 ? products : [];
-    } catch (e) {
-      throw new Error("Error getting products: " + e.message);
-    }
+  static async releaseLock(lockName) {
+    const lockKey = `lock:${lockName}`;
+    return new Promise((resolve, reject) => {
+      client.del(lockKey, (err, reply) => {
+        if (err) reject(err);
+        resolve(reply);
+      });
+    });
   }
 
-  static async deleteAProduct(product_id) {
-    try {
-      const deletedProduct = await product.findByIdAndDelete(product_id);
-      if (!deletedProduct) {
-        throw new BadRequestError("Cannot delete a product");
+  static async handlePostBook(bookData) {
+    const lockName = `book:${bookData.name}`;
+
+    if (await this.acquireLock(lockName)) {
+      try {
+        // Lưu dữ liệu sách vào Redis
+        return new Promise((resolve, reject) => {
+          client.set(bookData.name, JSON.stringify(bookData), (err, reply) => {
+            if (err) reject(err);
+            resolve(reply);
+          });
+        });
+      } finally {
+        await this.releaseLock(lockName);
       }
-      return deletedProduct;
-    } catch (error) {
-      throw new Error("Error delete product: " + error.message);
+    } else {
+      throw new Error("Could not acquire lock");
     }
   }
 
-  static async changeStatusProduct({ product_id }) {
-    try {
-      const productDoc = await product.findByIdAndUpdate(
-        product_id,
-        [
-          {
-            $set: {
-              isDraft: { $not: "$isDraft" },
-              isPublished: { $not: "$isPublished" },
-            },
-          },
-        ],
-        { new: true, select: "+isDraft +isPublished" } // This option returns the updated document
-      );
-      if (!productDoc) {
-        throw new BadRequestError("Product not found");
+  static async handleGetBook(name) {
+    const lockName = `book:${name}`;
+
+    if (await this.acquireLock(lockName)) {
+      try {
+        // Lấy dữ liệu sách từ Redis
+        return new Promise((resolve, reject) => {
+          client.get(name, (err, reply) => {
+            if (err) reject(err);
+            resolve(JSON.parse(reply));
+          });
+        });
+      } finally {
+        await this.releaseLock(lockName);
       }
-
-      return productDoc;
-    } catch (error) {
-      throw new Error("Error changing status product: " + error.message);
+    } else {
+      throw new Error("Could not acquire lock");
     }
-  }
-
-  static async createAttributes({ data, userId }) {
-    try {
-      const attribute = {
-        category: data.attributeName,
-        value: data.attributeValue,
-      };
-
-      const response = await variation.findOneAndUpdate(
-        { user: userId },
-        { $push: { attributes: attribute } },
-        { new: true, upsert: true }
-      );
-      return response;
-    } catch (error) {
-      throw new Error("Error creating attributes: " + error.message);
-    }
-  }
-
-  static async getAttributes({ userId }) {
-    const response = await variation.findOne({ user: userId });
-    if (!response) {
-      throw new BadRequestError("Cannot get attributes");
-    }
-    return response.attributes;
-  }
-
-  static async updateAttributes({ userId, attributeId, newValue }) {
-    const vari = await variation.findOneAndUpdate(
-      { user: userId, "attributes._id": attributeId },
-      { $set: { "attributes.$.value": newValue } },
-      { new: true }
-    );
-    return vari;
-  }
-
-  static async deleteAttribute({ userId, attributeId }) {
-    const deleteVariation = await variation.findOneAndUpdate(
-      { user: userId },
-      { $pull: { attributes: { _id: attributeId } } },
-      { new: true }
-    );
-    return deleteVariation;
   }
 }
 
-module.exports = ProductService;
+module.exports = RedisService;

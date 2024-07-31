@@ -6,7 +6,6 @@ const userRepository = require("../models/repositories/user.repository");
 const commentRepository = require("../models/repositories/comment.repo");
 const friendListRepository = require("../models/repositories/friendList.repository");
 const feelingPostRepository = require("../models/repositories/feelingPost.repository");
-const client = require("../db/init.redis");
 
 class PostService {
   static instance;
@@ -36,39 +35,26 @@ class PostService {
   }
 
   async likedPost({ userId, postId, type }) {
-    const lockKey = `post:${postId}:like:lock`;
-    const lockTimeout = 5000;
-
-    try {
-      const existingLike = await feelingPostRepository.findOne({
+    const existingLike = await feelingPostRepository.findOne({
+      userId,
+      postId,
+    });
+    if (existingLike) {
+      await feelingPostRepository.findByIdAndDelete(existingLike._id);
+      await postRepository.updateLikes(postId, existingLike._id, "pull");
+    } else {
+      const newLike = await feelingPostRepository.create({
         userId,
         postId,
+        type,
       });
-      if (existingLike) {
-        await feelingPostRepository.findByIdAndDelete(existingLike._id);
-        await postRepository.updateLikes(postId, existingLike._id, "pull");
-      } else {
-        const newLike = await feelingPostRepository.create({
-          userId,
-          postId,
-          type,
-        });
-        await newLike.save();
-        await postRepository.updateLikes(postId, newLike._id, "push");
-      }
-
-      const execResult = await multi.exec();
-      if (!execResult) {
-        throw new Error(
-          "Transaction failed due to data modification, please try again"
-        );
-      }
-      return existingLike
-        ? { message: "Like removed" }
-        : { message: "Like added" };
-    } finally {
-      await client.del(lockKey);
+      await newLike.save();
+      await postRepository.updateLikes(postId, newLike._id, "push");
     }
+
+    return existingLike
+      ? { message: "Like removed" }
+      : { message: "Like added" };
   }
 
   async savePost({ userId, postId }) {
@@ -91,11 +77,6 @@ class PostService {
 
   async handleGetAllPosts({ userId, page = 1, limit = 10 }) {
     const skip = (page - 1) * limit;
-    const cacheKey = `post:${userId}:${page}:${limit}`;
-    const cachedPosted = await client.get(cacheKey);
-    if (cachedPosted) {
-      return JSON.parse(cachedPosted);
-    }
 
     const friendLists = await friendListRepository.findByUserId(userId);
     const friendIds = friendLists.reduce(
@@ -114,9 +95,7 @@ class PostService {
       posts.map(async (p) => {
         const comments = await commentRepository.findByPostId(p._id);
         const likes = await feelingPostRepository.findLikesByIds(p.likes);
-        const response = { ...p._doc, comments, likes };
-        await client.setEx(cacheKey, 3600, JSON.stringify(response));
-        return response;
+        return { ...p._doc, comments, likes };
       })
     );
 
@@ -133,13 +112,6 @@ class PostService {
   }
 
   async getAllImagesByUserId({ userId }) {
-    const cacheKey = `images:${userId}`;
-    const cachedImages = await client.get(cacheKey);
-
-    if (cachedImages) {
-      return JSON.parse(cachedImages);
-    }
-
     const posts = await postRepository.findImagesByUserId(userId);
     const images = posts.reduce((acc, post) => {
       if (post.image) {
@@ -147,8 +119,6 @@ class PostService {
       }
       return acc;
     }, []);
-
-    await client.setEx(cacheKey, 3600, JSON.stringify(images));
     return images;
   }
 }
