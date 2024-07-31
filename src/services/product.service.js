@@ -1,79 +1,81 @@
-const redis = require("redis");
-const client = require("../db/init.redis");
+const { BadRequestError } = require("../core/error.response");
+const { variation } = require("../models/variation.model");
+const { product } = require("../models/product.model");
+const { default: mongoose } = require("mongoose");
 
-class RedisService {
-  static async acquireLock(lockName, timeout = 5000) {
-    const lockKey = `lock:${lockName}`;
-    const end = Date.now() + timeout;
+class ProductService {
+  static async createProduct(data) {
+    try {
+      const { attributes, combinations } = data;
 
-    while (Date.now() < end) {
-      const result = await new Promise((resolve, reject) => {
-        client.set(lockKey, "locked", "NX", "PX", timeout, (err, reply) => {
-          if (err) reject(err);
-          resolve(reply);
-        });
-      });
-
-      if (result === "OK") {
-        return true;
+      if (attributes && combinations) {
+        data.product_variations = combinations.map((combination, index) => ({
+          attributes: attributes.map((attr) => ({
+            category: attr.category,
+            value: attr.value.split(",")[index % attr.value.split(",").length],
+          })),
+          price: parseFloat(combination.price),
+          quantity: parseInt(combination.quantity, 10),
+        }));
       }
 
-      // Wait for a short time before retrying
-      await new Promise((resolve) => setTimeout(resolve, 50));
-    }
-
-    return false;
-  }
-
-  static async releaseLock(lockName) {
-    const lockKey = `lock:${lockName}`;
-    return new Promise((resolve, reject) => {
-      client.del(lockKey, (err, reply) => {
-        if (err) reject(err);
-        resolve(reply);
-      });
-    });
-  }
-
-  static async handlePostBook(bookData) {
-    const lockName = `book:${bookData.name}`;
-
-    if (await this.acquireLock(lockName)) {
-      try {
-        // Lưu dữ liệu sách vào Redis
-        return new Promise((resolve, reject) => {
-          client.set(bookData.name, JSON.stringify(bookData), (err, reply) => {
-            if (err) reject(err);
-            resolve(reply);
-          });
-        });
-      } finally {
-        await this.releaseLock(lockName);
-      }
-    } else {
-      throw new Error("Could not acquire lock");
+      const newProduct = await product.create(data);
+      return newProduct;
+    } catch (error) {
+      throw new Error("Error creating product: " + error.message);
     }
   }
 
-  static async handleGetBook(name) {
-    const lockName = `book:${name}`;
-
-    if (await this.acquireLock(lockName)) {
-      try {
-        // Lấy dữ liệu sách từ Redis
-        return new Promise((resolve, reject) => {
-          client.get(name, (err, reply) => {
-            if (err) reject(err);
-            resolve(JSON.parse(reply));
-          });
-        });
-      } finally {
-        await this.releaseLock(lockName);
-      }
-    } else {
-      throw new Error("Could not acquire lock");
+  static async getAllProductOfUser(userId) {
+    try {
+      console.log("Check user", userId);
+      const userObjectId = new mongoose.Types.ObjectId(userId);
+      const products = await product
+        .find({ product_user: userObjectId })
+        .select("+isDraft +isPublished");
+      return products.length > 0 ? products : [];
+    } catch (e) {
+      throw new Error("Error getting products: " + e.message);
     }
   }
+
+  static async deleteAProduct(product_id) {
+    try {
+      const deletedProduct = await product.findByIdAndDelete(product_id);
+      if (!deletedProduct) {
+        throw new BadRequestError("Cannot delete a product");
+      }
+      return deletedProduct;
+    } catch (error) {
+      throw new Error("Error delete product: " + error.message);
+    }
+  }
+
+  static async changeStatusProduct({ product_id }) {
+    try {
+      const productDoc = await product.findByIdAndUpdate(
+        product_id,
+        [
+          {
+            $set: {
+              isDraft: { $not: "$isDraft" },
+              isPublished: { $not: "$isPublished" },
+            },
+          },
+        ],
+        { new: true, select: "+isDraft +isPublished" } // This option returns the updated document
+      );
+      if (!productDoc) {
+        throw new BadRequestError("Product not found");
+      }
+
+      return productDoc;
+    } catch (error) {
+      throw new Error("Error changing status product: " + error.message);
+    }
+  }
+
+  
 }
 
-module.exports = RedisService;
+module.exports = ProductService;

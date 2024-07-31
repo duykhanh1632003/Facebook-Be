@@ -1,30 +1,56 @@
-const RedisService = require("../services/redis.service");
-const { SuccessResponse } = require("../core/success.response.js");
+const { CREATED, SuccessResponse } = require("../core/success.response");
+const ProductService = require("../services/product.service");
 
-class RedisController {
-  async handlePostBook(req, res, next) {
+class ProductController {
+  createProduct = async (req, res, next) => {
     try {
-      const data = await RedisService.handlePostBook(req.body);
+      const data = await ProductService.createProduct(req.body);
       new SuccessResponse({
-        message: "Post book success",
+        message: "Product created successfully",
+        data,
+      }).send(res);
+    } catch (error) {
+      next(error);  
+    }
+  };
+
+  getAllProductOfUser = async (req, res, next) => {
+    try {
+      const data = await ProductService.getAllProductOfUser(req.user.userId);
+      new SuccessResponse({
+        message: "Product created successfully",
         metadata: data,
       }).send(res);
     } catch (error) {
       next(error);
     }
-  }
-
-  async handleGetBook(req, res, next) {
+  };
+  deleteAProduct = async (req, res, next) => {
     try {
-      const { name } = req.params;
-      const data = await RedisService.handleGetBook(name);
-      new SuccessResponse({ message: "Get book success", metadata: data }).send(
-        res
-      );
+      const { product_id } = req.params;
+      await ProductService.deleteAProduct(product_id);
+      new SuccessResponse({
+        message: "delete product successfully",
+      }).send(res);
     } catch (error) {
       next(error);
     }
-  }
+  };
+
+  changeStatusProduct = async (req, res, next) => {
+    try {
+      const { product_id } = req.params;
+      const data = await ProductService.changeStatusProduct({ product_id });
+      new SuccessResponse({
+        message: "Product created successfully",
+        metadata: data,
+      }).send(res);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  
 }
 
-module.exports = new RedisController();
+module.exports = new ProductController();

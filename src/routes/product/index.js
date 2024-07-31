@@ -15,23 +15,10 @@ router.post(
   "/change/status/:product_id",
   asyncHandler(productController.changeStatusProduct)
 );
-router.post(
-  "/new/attributes",
-  asyncHandler(productController.createAttributes)
-);
 
 router.delete(
   "/delete/product/:product_id",
   asyncHandler(productController.deleteAProduct)
-);
-router.get("/get/attributes", asyncHandler(productController.getAttributes));
-router.put(
-  "/update/attribute/:attributeId",
-  asyncHandler(productController.updateAttribute)
-);
-router.delete(
-  "/delete/attribute/:attributeId",
-  asyncHandler(productController.deleteAttribute)
 );
 
 module.exports = router;

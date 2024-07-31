@@ -17,5 +17,6 @@ router.use("/v1/api", require("./uploadSW3"));
 router.use("/v1/api", require("./watch"));
 router.use("/v1/api", require("./tinder"));
 router.use("/v1/api", require("./product"));
+router.use("/v1/api", require("./attributes"));
 
 module.exports = router;

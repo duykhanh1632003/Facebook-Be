@@ -30,3 +30,64 @@ elasticsearch
 docker network create elastic
 docker pull docker.elastic.co/elasticsearch/elasticsearch:8.4.3
 docker run --name es-aliconcon --net elastic -p 9200:9200 -p 9300:9300 -it docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+
+
+
+Các lệnh về Key
+SET key value [EX seconds] [PX milliseconds] [NX|XX]: Thiết lập giá trị của key với các tùy chọn hết hạn và điều kiện.
+GET key: Lấy giá trị của key.
+DEL key [key ...]: Xóa một hoặc nhiều key.
+EXISTS key: Kiểm tra xem key có tồn tại hay không.
+EXPIRE key seconds: Đặt thời gian hết hạn cho key tính bằng giây.
+TTL key: Kiểm tra thời gian sống còn lại của key.
+
+
+Các lệnh về String
+APPEND key value: Nối thêm một giá trị vào cuối giá trị hiện tại của key.
+INCR key: Tăng giá trị của key lên 1.
+DECR key: Giảm giá trị của key đi 1.
+MGET key [key ...]: Lấy giá trị của nhiều key.
+MSET key value [key value ...]: Thiết lập giá trị của nhiều key.
+
+
+
+Các lệnh về Hash
+HSET key field value: Thiết lập giá trị của một field trong hash.
+HGET key field: Lấy giá trị của một field trong hash.
+HDEL key field [field ...]: Xóa một hoặc nhiều field trong hash.
+HGETALL key: Lấy tất cả các field và giá trị của hash.
+HEXISTS key field: Kiểm tra xem một field có tồn tại trong hash hay không.
+
+
+
+Các lệnh về List
+LPUSH key value [value ...]: Thêm một hoặc nhiều giá trị vào đầu danh sách.
+RPUSH key value [value ...]: Thêm một hoặc nhiều giá trị vào cuối danh sách.
+LPOP key: Lấy và xóa giá trị đầu tiên của danh sách.
+RPOP key: Lấy và xóa giá trị cuối cùng của danh sách.
+LRANGE key start stop: Lấy các phần tử từ vị trí start đến stop trong danh sách.
+
+
+Các lệnh về Set
+SADD key member [member ...]: Thêm một hoặc nhiều thành viên vào set.
+SREM key member [member ...]: Xóa một hoặc nhiều thành viên khỏi set.
+SMEMBERS key: Lấy tất cả các thành viên của set.
+SISMEMBER key member: Kiểm tra xem một giá trị có phải là thành viên của set hay không.
+
+
+Các lệnh về Sorted Set
+ZADD key score member [score member ...]: Thêm một hoặc nhiều thành viên vào sorted set với điểm số tương ứng.
+ZREM key member [member ...]: Xóa một hoặc nhiều thành viên khỏi sorted set.
+ZRANGE key start stop [WITHSCORES]: Lấy các phần tử từ vị trí start đến stop trong sorted set.
+ZREVRANGE key start stop [WITHSCORES]: Lấy các phần tử từ vị trí start đến stop trong sorted set theo thứ tự ngược lại.
+
+
+Các lệnh về Pub/Sub
+PUBLISH channel message: Gửi một thông điệp tới channel.
+SUBSCRIBE channel [channel ...]: Đăng ký lắng nghe thông điệp từ các channel.
+
+
+Các lệnh về Transaction
+MULTI: Bắt đầu một transaction.
+EXEC: Thực thi tất cả các lệnh trong transaction.
+DISCARD: Hủy bỏ tất cả các lệnh trong transaction.
