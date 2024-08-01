@@ -1,17 +1,14 @@
 const express = require("express");
 const asyncHandler = require("../../helpers/asyncHandler");
 const { authentication } = require("../../auth/authUtils");
-const discountController = require("../../controllers/discount.controller");
+const locationController = require("../../controllers/location.controller");
 const router = express.Router();
 
 router.use(authentication);
 router.post(
-  "/post/new/discount",
-  asyncHandler(discountController.createNewDiscount)
+  "/save-location",
+  asyncHandler(locationController.createNewLocation)
 );
-router.get(
-  "/get/allDiscount",
-  asyncHandler(discountController.getAllDiscounts)
-);
+
 
 module.exports = router;

@@ -13,17 +13,8 @@ const HEADER = {
 
 const createTokenPair = async (payload, publicKey, privateKey) => {
   try {
-    const accessToken = jwt.sign(payload, publicKey, { expiresIn: "7 days" });
-    const refreshToken = jwt.sign(payload, privateKey, { expiresIn: "7 days" });
-
-    // Uncomment this if you need to verify tokens during creation
-    // jwt.verify(accessToken, publicKey, (err, decode) => {
-    //   if (err) {
-    //     console.log("Error verifying token:", err);
-    //   } else {
-    //     console.log("decode verify", decode);
-    //   }
-    // });
+    const accessToken = jwt.sign(payload, publicKey, { expiresIn: "7d" });
+    const refreshToken = jwt.sign(payload, privateKey, { expiresIn: "7d" });
 
     return { accessToken, refreshToken };
   } catch (e) {
@@ -61,6 +52,7 @@ const authentication = asyncHandler(async (req, res, next) => {
   try {
     const decodedUser = jwt.verify(accessToken, keyStore.publicKey);
     if (userId !== decodedUser.userId) throw new AuthFailError("Invalid user");
+
     req.userId = keyStore.userId;
     req.keyStore = keyStore;
     req.user = decodedUser;
