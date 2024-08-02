@@ -19,5 +19,6 @@ router.use("/v1/api", require("./tinder"));
 router.use("/v1/api", require("./product"));
 router.use("/v1/api", require("./attributes"));
 router.use("/v1/api", require("./discount"));
+router.use("/v1/api", require("./location"));
 
 module.exports = router;

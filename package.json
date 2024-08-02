@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node src/server.js"
+    "start": "nodemon --exec babel-node src/server.js",
+    "prepare": "husky install"
+  },
+  "lint-staged":{
+    "**/*": "prettier --write --ignore-unknown"
   },
   "author": "duy Khanh",
   "license": "ISC",
@@ -66,7 +70,10 @@
     "@babel/core": "^7.22.17",
     "@babel/node": "^7.22.15",
     "@babel/preset-env": "^7.22.15",
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.7",
     "nodemon": "^3.0.1",
+    "prettier": "3.3.3",
     "sequelize-cli": "^6.6.1"
   }
 }

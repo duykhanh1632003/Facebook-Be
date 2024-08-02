@@ -5,8 +5,16 @@ const productController = require("../../controllers/product.controller");
 const router = express.Router();
 
 router.use(authentication);
+ 
+ 
+ 
+ 
 
+ 
 router.post("/products/create", asyncHandler(productController.createProduct));
+
+
+
 router.get(
   "/get/allProduct",
   asyncHandler(productController.getAllProductOfUser)
