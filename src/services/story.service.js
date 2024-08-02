@@ -32,7 +32,7 @@ class StoryService {
       }
       return;
     } catch (error) {
-      res.status(500).json({ error: "Failed to create text story" });
+      console.log(error)
     }
   };
 
