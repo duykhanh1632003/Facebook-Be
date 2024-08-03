@@ -1,4 +1,3 @@
-const redis = require("redis");
 const client = require("../db/init.redis");
 
 class RedisService {

@@ -42,7 +42,7 @@ class AccessService {
     );
 
     if (foundToken) {
-      const { userId, email } = await verifyToken(
+      const { userId } = await verifyToken(
         refreshToken,
         foundToken.privateKey
       );

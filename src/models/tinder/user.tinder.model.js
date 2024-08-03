@@ -14,7 +14,7 @@ const userTinderSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      match: [/.+\@.+\..+/, "Please fill a valid email address"],
+      match: [/.+\.+\..+/, "Please fill a valid email address"],
     },
     birthDate: {
       type: String, // Store birthdate as a string in DD/MM/YYYY format

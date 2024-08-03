@@ -12,7 +12,7 @@ const runProducer = async () => {
   await consumer.subscribe({ topic: "test-topic", fromBeginning: true });
 
   await consumer.run({
-    eachMessage: async ({ topic, partition, message }) => {
+    eachMessage: async ({ message }) => {
       console.log({
         value: message.value.toString(),
       });

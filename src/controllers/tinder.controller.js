@@ -1,8 +1,8 @@
-const { CREATED, SuccessResponse } = require("../core/success.response");
+const {  SuccessResponse } = require("../core/success.response");
 const TinderService = require("../services/tinder.user.service");
 
 class TinderController {
-  createUserTinder = async (req, res, next) => {
+  createUserTinder = async (req, res) => {
     const data = await TinderService.createUserTinder(req.body);
     new SuccessResponse({
       message: "User profile created successfully",

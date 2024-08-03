@@ -5,15 +5,17 @@ const { connectToRabbitMQ, consumerQueue } = require("../db/init.rabbit");
 const messageService = {
   conSumerToQueue: async (queueName) => {
     try {
-      const { channel, connection } = await connectToRabbitMQ();
+      const { channel } = await connectToRabbitMQ();
       await consumerQueue(channel, queueName);
-    } catch (e) {}
+    } catch (e) {
+      console.log(e)
+
+    }
   },
 
-  conSumerToQueueNormal: async (queueName) => {
+  conSumerToQueueNormal: async () => {
     try {
-      const { channel, connection } = await connectToRabbitMQ();
-      const notiQueue = "notificationQueueProcess";
+      const { channel } = await connectToRabbitMQ();
 
       setTimeout(() => {
         channel.consume("Send notificationsQueue success", (msg) => {
@@ -25,9 +27,9 @@ const messageService = {
     }
   },
 
-  consumerToQueueFailed: async (queueName) => {
+  consumerToQueueFailed: async () => {
     try {
-      const { channel, connection } = connectToRabbitMQ();
+      const { channel } = connectToRabbitMQ();
       const notificationExchangeDLX = "notificationExDLX";
       const notifiRoutingKeyDLX = "notificationRoutingKeyDLX";
       const notiQueueHandler = "notificationQueueHotFix";

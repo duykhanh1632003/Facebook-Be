@@ -40,7 +40,7 @@ const sendEmail = ({ recipient_email, OTP }) => {
 </body>
 </html>`,
     };
-    transporter.sendMail(email_config, function (error, info) {
+    transporter.sendMail(email_config, function (error) {
       if (error) {
         console.log(error);
         return reject({ message: `Có lỗi khi gửi email` });

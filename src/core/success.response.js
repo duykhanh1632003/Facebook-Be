@@ -15,7 +15,7 @@ class SuccessResponse {
     this.status = statusCode;
     this.metadata = metadata;
   }
-  send(res, header = {}) {
+  send(res = {}) {
     return res.status(this.status).json(this);
   }
 }
@@ -30,7 +30,7 @@ class CREATED extends SuccessResponse {
     options = {},
     message,
     statusCode = StatusCode.CREATED,
-    reasonStatusCode = ReasonStatusCode.CREATED,
+    reasonStatusCode = reasonStatusCode.CREATED,
     metadata,
   }) {
     super({ message, statusCode, reasonStatusCode, metadata });

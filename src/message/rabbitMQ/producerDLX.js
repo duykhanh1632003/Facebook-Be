@@ -1,11 +1,9 @@
 const amqp = require("amqplib");
 
-const message = "hello rabbit MQ";
 const runProducer = async () => {
   try {
     const connection = await amqp.connect("amqp://guest:guest@localhost");
     const channel = await connection.createChannel();
-    const queueName = "test-topic";
     const notificationExchange = "notificationEx";
     const notiQueue = "notificationQueueProcess";
     const notificationExchangeDLX = "notificationExDLX";

@@ -1,5 +1,5 @@
 "use strict";
-const { CREATED, SuccessResponse } = require("../core/success.response.js");
+const {  SuccessResponse } = require("../core/success.response.js");
 const WatchPostService = require("../services/watchPost.service.js");
 
 class WatchController {
@@ -34,7 +34,7 @@ class WatchController {
       next(error);
     }
   };
-  incrementVideoView = async (req, res, next) => {
+  incrementVideoView = async (req, res) => {
     const { videoId } = req.body;
     const response = await WatchPostService.incrementVideoView(videoId);
     new SuccessResponse({

@@ -1,6 +1,6 @@
 const amqp = require("amqplib");
 
-const runComsumer = async () => {
+const runComsumer = async (message) => {
   try {
     const connection = await amqp.connect("amqp://guest:guest@localhost");
     const channel = await connection.createChannel();

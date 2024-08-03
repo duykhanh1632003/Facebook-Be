@@ -1,6 +1,5 @@
 const _ = require("lodash");
 const { user } = require("../models/user.model");
-const friendList = require("../models/friendList");
 
 const getInfoData = ({ fields = [], object = {} }) => {
   return _.pick(object, fields);

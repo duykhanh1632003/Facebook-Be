@@ -12,7 +12,9 @@ const uploadImageFromUrl = async () => {
       folder: folderName,
     });
     console.log(result);
-  } catch (e) {}
+  } catch (e) {
+    console.log(e)
+  }
 };
 const uploadImageFromLocal = async ({ path, folderName = "facebook/8409" }) => {
   try {
@@ -29,8 +31,9 @@ const uploadImageFromLocal = async ({ path, folderName = "facebook/8409" }) => {
         format: "jpg",
       }),
     };
-    console.log(result);
-  } catch (e) {}
+  } catch (e) {
+    console.log(e)
+  }
 };
 
 module.exports = { uploadImageFromUrl, uploadImageFromLocal };

@@ -1,5 +1,4 @@
 const { BadRequestError } = require("../core/error.response");
-const { variation } = require("../models/variation.model");
 const { product } = require("../models/product.model");
 const { default: mongoose } = require("mongoose");
 

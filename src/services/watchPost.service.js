@@ -1,5 +1,6 @@
 "use strict";
 
+const { BadRequestError } = require("../core/error.response");
 const { postVideo } = require("../models/post.video.model");
 const friendListRepository = require("../models/repositories/friendList.repository");
 

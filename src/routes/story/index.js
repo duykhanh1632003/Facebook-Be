@@ -2,7 +2,6 @@
 const express = require("express");
 const asyncHandler = require("../../helpers/asyncHandler");
 const { authentication } = require("../../auth/authUtils");
-const PostController = require("../../controllers/post.controller");
 const storyController = require("../../controllers/story.controller");
 const router = express.Router();
 

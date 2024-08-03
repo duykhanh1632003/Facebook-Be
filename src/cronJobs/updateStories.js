@@ -1,5 +1,8 @@
+const express = require("express");
 const mongoose = require("mongoose");
 const { story } = require("../models/story.model");
+
+const app = express();
 
 const updateStories = async () => {
   const now = new Date();

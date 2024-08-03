@@ -6,7 +6,6 @@ const compression = require("compression");
 const session = require("express-session");
 const passport = require("passport");
 const RedisStore = require("connect-redis").default;
-const morgan = require('morgan');
 
 require("dotenv").config();
 require("./authGoogle");
