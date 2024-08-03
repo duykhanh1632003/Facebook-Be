@@ -6,12 +6,22 @@ const compression = require("compression");
 const session = require("express-session");
 const passport = require("passport");
 const RedisStore = require("connect-redis").default;
+const morgan = require('morgan');
+
 require("dotenv").config();
 require("./authGoogle");
 require("./db/init.db");
 require("./db/init.sw3");
 // require("./db/init.es");
 const redisClient = require("./db/init.redis");
+const YAML = require("yaml");
+const fs = require("fs");
+const path = require("path");
+const swaggerUi = require('swagger-ui-express');
+
+const filePath = path.resolve(__dirname, './swagger-facebook.yaml');
+const file = fs.readFileSync(filePath, 'utf8');
+const swaggerDocument = YAML.parse(file);
 
 const app = express();
 
@@ -34,7 +44,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // app.use("", require("./routes/redis"));
 app.use("", require("./routes/index"));
 require("./cronJobs/updateStories");
