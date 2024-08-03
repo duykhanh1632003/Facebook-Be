@@ -4,21 +4,29 @@ const LocationService = require("../services/location.service.js");
 
 class LocationController {
   createNewLocation = async (req, res, next) => {
-    const data = await LocationService.createNewLocation({
-      data: req.body,
-      userId: req.user.userId,
-    });
-    new SuccessResponse({ metadata: data }).send(res);
+    try {
+      const data = await LocationService.createNewLocation({
+        data: req.body,
+        userId: req.user.userId,
+      });
+      new SuccessResponse({ metadata: data }).send(res);
+    } catch (error) {
+      next(error);
+    }
   };
 
   findProductNearUser = async (req, res, next) => {
-    const {maxDistance} = req.body
-    const data = await LocationService.findProductNearUser(
-      {
-      maxDistance,
-      userId: req.user.userId,
-    });
-    new SuccessResponse({ metadata: data }).send(res);
+    try {
+      const { maxDistance } = req.params;
+
+      const data = await LocationService.findProductNearUser({
+        maxDistance: Number(maxDistance),
+        userId: req.user.userId,
+      });
+      new SuccessResponse({ metadata: data }).send(res);
+    } catch (error) {
+      next(error);
+    }
   };
 }
 

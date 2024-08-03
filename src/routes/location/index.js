@@ -9,6 +9,9 @@ router.post(
   "/save-location",
   asyncHandler(locationController.createNewLocation)
 );
-
+router.get(
+  "/get/all/market/:maxDistance",
+  asyncHandler(locationController.findProductNearUser)
+);
 
 module.exports = router;

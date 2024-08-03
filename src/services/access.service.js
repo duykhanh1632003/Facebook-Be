@@ -5,7 +5,6 @@ const {
   AuthFailError,
 } = require("../core/error.response");
 const bcrypt = require("bcrypt");
-const { keyToken } = require("../models/keyToken.model");
 const { user } = require("../models/user.model");
 const { findByEmail } = require("./user.service");
 const crypto = require("crypto");
@@ -13,6 +12,7 @@ const { getInfoData } = require("../utils");
 const KeyTokenService = require("./keyToken.service");
 const sendEmail = require("../utils/sendMailer");
 const searchHistoryModel = require("../models/searchHistory.model");
+const keyTokenModel = require("../models/keyToken.model");
 
 class AccessService {
   static refreshAccessToken = async (refreshToken) => {
@@ -32,7 +32,7 @@ class AccessService {
 
       return { tokens: { accessToken: tokens.accessToken } };
     } catch (err) {
-      throw new RefreshTokenError("Refresh token expired");
+      throw new RefreshTokenError("Refresh token expired",err);
     }
   };
   static handlerRefreshToken = async (refreshToken) => {
@@ -62,7 +62,7 @@ class AccessService {
       holderUser.publicKey,
       holderUser.privateKey
     );
-    await keyToken.updateOne(
+    await keyTokenModel.updateOne(
       { _id: holderUser._id },
       {
         $set: {
