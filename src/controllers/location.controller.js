@@ -10,6 +10,16 @@ class LocationController {
     });
     new SuccessResponse({ metadata: data }).send(res);
   };
+
+  findProductNearUser = async (req, res, next) => {
+    const {maxDistance} = req.body
+    const data = await LocationService.findProductNearUser(
+      {
+      maxDistance,
+      userId: req.user.userId,
+    });
+    new SuccessResponse({ metadata: data }).send(res);
+  };
 }
 
 module.exports = new LocationController();

@@ -1,20 +1,20 @@
-# Sử dụng image Node.js chính thức
 FROM node:20
 
-# Thiết lập thư mục làm việc trong container
+# Create app directory
 WORKDIR /app
 
-# Sao chép package.json và package-lock.json vào thư mục làm việc
+# Install app dependencies
 COPY package*.json ./
-
-# Cài đặt các dependencies
 RUN npm install
 
-# Sao chép toàn bộ mã nguồn vào container
+# Bundle app source code inside /app/src
 COPY . .
 
-# Expose port mà ứng dụng sử dụng
+# Set the working directory inside the container
+WORKDIR /app/src
+
+# Expose port 8000
 EXPOSE 8000
 
-# Chạy ứng dụng
+# Start the application
 CMD ["node", "server.js"]

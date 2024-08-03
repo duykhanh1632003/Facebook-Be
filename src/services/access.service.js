@@ -40,6 +40,7 @@ class AccessService {
     const foundToken = await KeyTokenService.foundByRefreshTokenUsed(
       refreshToken
     );
+
     if (foundToken) {
       const { userId, email } = await verifyToken(
         refreshToken,
@@ -52,7 +53,7 @@ class AccessService {
     // Nếu chưa thì tiếp tục xác thực
     const holderUser = await KeyTokenService.findByRefreshToken(refreshToken);
     if (!holderUser) throw new BadRequestError("User này chưa được đăng ký 1");
-    const { userId, email } = verifyToken(refreshToken, holderShop.privateKey);
+    const { userId, email } = verifyToken(refreshToken, holderUser.privateKey);
     const foundUser = await findByEmail({ email });
     if (!foundUser) throw new BadRequestError("User này chưa được đăng ký 2");
 
@@ -62,7 +63,7 @@ class AccessService {
       holderUser.privateKey
     );
     await keyToken.updateOne(
-      { _id: holderShop._id },
+      { _id: holderUser._id },
       {
         $set: {
           refreshToken: tokens.refreshToken,
