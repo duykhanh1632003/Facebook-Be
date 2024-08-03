@@ -14,6 +14,7 @@ const productVariationSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
   orders_count: { type: Number, default: 0 },
+  discountedPrice: { type: Number }, 
 });
 
 const productSchema = new mongoose.Schema(
