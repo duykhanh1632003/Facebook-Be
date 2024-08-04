@@ -1,21 +1,24 @@
 const { BadRequestError } = require("../core/error.response");
 const { product } = require("../models/product.model");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
 class ProductService {
   static async createProduct(data) {
+    console.log("Check data", data);
     try {
       const { attributes, combinations } = data;
 
       if (attributes && combinations) {
-        data.product_variations = combinations.map((combination, index) => ({
-          attributes: attributes.map((attr) => ({
-            category: attr.category,
-            value: attr.value.split(",")[index % attr.value.split(",").length],
-          })),
-          price: parseFloat(combination.price),
-          quantity: parseInt(combination.quantity, 10),
-        }));
+        data.product_variations = combinations
+          .filter(combination => combination.price && combination.quantity)
+          .map((combination, index) => ({
+            attributes: attributes.map((attr) => ({
+              category: attr.category,
+              value: attr.value.split(",")[index % attr.value.split(",").length],
+            })),
+            price: parseFloat(combination.price),
+            quantity: parseInt(combination.quantity, 10),
+          }));
       }
 
       const newProduct = await product.create(data);
@@ -73,8 +76,6 @@ class ProductService {
       throw new Error("Error changing status product: " + error.message);
     }
   }
-
-  
 }
 
 module.exports = ProductService;

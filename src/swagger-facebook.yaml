@@ -101,7 +101,6 @@ components:
       type: apiKey
       name: x-api-key
       in: header
- 
     Order:
       type: object
       properties:

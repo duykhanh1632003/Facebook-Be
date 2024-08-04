@@ -1,10 +1,9 @@
 "use strict";
 const { BadRequestError } = require("../core/error.response");
-const { discount } = require("../models/discout.model");
+const { discount } = require("../models/discount.model");
 
 class DiscountService {
   static createNewDiscount = async (discountData) => {
-    console.log("Check discountData", discountData);
     try {
       const newDiscount = await discount.create(discountData);
       return newDiscount;

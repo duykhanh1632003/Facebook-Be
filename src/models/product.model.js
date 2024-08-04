@@ -14,7 +14,6 @@ const productVariationSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
   orders_count: { type: Number, default: 0 },
-  discountedPrice: { type: Number }, 
 });
 
 const productSchema = new mongoose.Schema(
@@ -45,6 +44,8 @@ const productSchema = new mongoose.Schema(
     isPublished: { type: Boolean, default: false, index: true, select: false },
     product_variations: [productVariationSchema],
     favorites_count: { type: Number, default: 0 },
+    units_sold: { type: Number, default: 0 }, // Add this field
+    total_revenue: { type: Number, default: 0 }, // Add this field
   },
   {
     collection: COLLECTION_NAME,
