@@ -48,7 +48,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("", require("./routes/index"));
 require("./cronJobs/updateStories");
 
-app.listen(8000, '0.0.0.0', () => {
+app.listen(8000, () => {
   console.log('Server is running on port 8000');
 });
 

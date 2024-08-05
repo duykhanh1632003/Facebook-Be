@@ -10,6 +10,9 @@ RUN npm install
 # Bundle app source code inside /app/src
 COPY . .
 
+# Copy .env file
+COPY .env .env
+
 # Set the working directory inside the container
 WORKDIR /app/src
 

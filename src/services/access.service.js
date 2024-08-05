@@ -102,7 +102,7 @@ class AccessService {
 
       return newUser;
     } catch (e) {
-      throw new AuthFailError("Cannot create account");
+      throw new AuthFailError("Cannot create account",e);
     }
   };
   static logout = async (keystore) => {

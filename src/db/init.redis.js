@@ -1,6 +1,9 @@
 "use strict";
 const { createClient } = require("redis");
 
+// Log the Redis URL to verify it
+console.log("Redis URL: ", process.env.URL_REDIS);
+
 const client = createClient({
   url: process.env.URL_REDIS,
   legacyMode: true, // Required if you are using a library that expects Redis v3 commands
