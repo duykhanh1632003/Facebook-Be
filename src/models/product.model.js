@@ -11,7 +11,7 @@ const attributeSchema = new mongoose.Schema({
 
 const productVariationSchema = new mongoose.Schema({
   attributes: [attributeSchema],
-  price: { type: Number, required: true },
+  price: { type: Number, required: true },  
   quantity: { type: Number, required: true },
   orders_count: { type: Number, default: 0 },
 });
