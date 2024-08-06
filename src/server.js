@@ -24,7 +24,10 @@ const swaggerDocument = YAML.parse(file);
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({
+  origin: ["http://localhost:5173", "http://localhost:80"], // Thêm cả cổng 80 và 5173
+  credentials: true
+}));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

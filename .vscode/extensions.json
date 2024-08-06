@@ -1,0 +1,11 @@
+// This file is used to recommend extensions that you use in your project.
+//  When someone opens the project in VS Code, 
+//  they will be prompted to install the recommended extensions.
+
+{
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "mikestead.dotenv"
+    ]
+  }

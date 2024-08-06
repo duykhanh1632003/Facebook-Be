@@ -1,0 +1,52 @@
+{
+    "editor.table": 2,
+    "editor.detectIndentation": false,
+    "jest.autoRun":{
+        "watch": false,
+        "ovSave": "test-file"
+    },
+    "search.exclue": {"package-lock.json": true },
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": [ "source.addMissingImports", "source.fixAll.eslint" ],
+    "json": { "editor.formatOnSave": true, "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "jsonc": { "editor.formatOnSave": true, "editor.defaultFormatter": "esbenp.prettier-vscode" }
+}
+
+
+/*
+"editor.tabSize": 2
+
+Thiết lập kích thước của tab là 2 khoảng trắng.
+"editor.detectIndentation": false
+
+Tắt tính năng tự động phát hiện kiểu thụt lề của tệp (kích thước tab và sử dụng tab hay khoảng trắng).
+"jest.autoRun": { "watch": false, "onSave": "test-file" }
+
+Cấu hình Jest để không tự động chạy các bài kiểm tra khi tệp thay đổi (watch: false).
+Chạy kiểm tra chỉ khi lưu tệp (onSave: "test-file").
+"search.exclude": { "package-lock.json": true }
+
+Loại trừ tệp package-lock.json khỏi kết quả tìm kiếm.
+"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+
+Đặt eslint làm công cụ định dạng mặc định cho các tệp.
+"editor.formatOnSave": false
+
+Tắt tính năng tự động định dạng tệp khi lưu.
+"editor.codeActionsOnSave": [ "source.addMissingImports", "source.fixAll.eslint" ]
+
+Thực hiện các hành động tự động khi lưu tệp:
+source.addMissingImports: Tự động thêm các import còn thiếu.
+source.fixAll.eslint: Sửa tất cả các vấn đề ESLint.
+"json": { "editor.formatOnSave": true, "editor.defaultFormatter": "esbenp.prettier-vscode" }
+
+Đối với các tệp JSON:
+Bật tính năng tự động định dạng khi lưu.
+Đặt Prettier làm công cụ định dạng mặc định.
+"jsonc": { "editor.formatOnSave": true, "editor.defaultFormatter": "esbenp.prettier-vscode" }
+
+Đối với các tệp JSON có chú thích (JSON with comments - JSONC):
+Bật tính năng tự động định dạng khi lưu.
+Đặt Prettier làm công cụ định dạng mặc định.
+*/

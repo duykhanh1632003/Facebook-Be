@@ -1,0 +1,65 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+    {
+      "label": "Project wide type checking with js",
+      "type": "npm",
+      "script": "build-types",
+      "problemMatcher": ["$tsc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "clear": true,
+        "reveal": "never"
+      }
+    }
+  ]
+}
+
+
+/*
+Giải thích chi tiết:
+"version": "2.0.0"
+
+Phiên bản của định dạng tasks.json mà bạn đang sử dụng. Phiên bản này là 2.0.0.
+"tasks": [ ... ]
+
+Một mảng chứa các nhiệm vụ (tasks) khác nhau. Trong ví dụ này, chỉ có một nhiệm vụ được định nghĩa.
+{ "label": "Project wide type checking with TypeScript", ... }
+
+Đây là định nghĩa của một nhiệm vụ (task).
+Chi tiết của nhiệm vụ:
+"label": "Project wide type checking with TypeScript"
+
+Nhãn của nhiệm vụ, giúp bạn dễ dàng nhận biết nhiệm vụ này trong danh sách các nhiệm vụ.
+"type": "npm"
+
+Loại của nhiệm vụ, trong trường hợp này là nhiệm vụ npm.
+"script": "build-types"
+
+Tên của script npm sẽ được chạy. Script này được định nghĩa trong file package.json của bạn, ví dụ:
+json
+Copy code
+{
+  "scripts": {
+    "build-types": "tsc"
+  }
+}
+"problemMatcher": ["$tsc"]
+
+Bộ khớp vấn đề (problem matcher) được sử dụng để xác định và đánh dấu lỗi trong quá trình thực thi nhiệm vụ. Trong trường hợp này, $tsc là bộ khớp vấn đề cho TypeScript Compiler (tsc).
+"group": { ... }
+
+Nhóm của nhiệm vụ này:
+"kind": "build": Nhiệm vụ này thuộc loại build.
+"isDefault": true: Nhiệm vụ này là nhiệm vụ mặc định cho nhóm build.
+"presentation": { ... }
+
+Cách trình bày đầu ra của nhiệm vụ:
+"clear": true: Xóa đầu ra của nhiệm vụ trước đó trước khi hiển thị đầu ra mới.
+"reveal": "never": Không tự động hiển thị panel đầu ra khi chạy nhiệm vụ này.
+
+
+*/
