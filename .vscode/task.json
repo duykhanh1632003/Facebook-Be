@@ -27,11 +27,11 @@ Phiên bản của định dạng tasks.json mà bạn đang sử dụng. Phiên
 "tasks": [ ... ]
 
 Một mảng chứa các nhiệm vụ (tasks) khác nhau. Trong ví dụ này, chỉ có một nhiệm vụ được định nghĩa.
-{ "label": "Project wide type checking with TypeScript", ... }
+{ "label": "Project wide type checking with Js", ... }
 
 Đây là định nghĩa của một nhiệm vụ (task).
 Chi tiết của nhiệm vụ:
-"label": "Project wide type checking with TypeScript"
+"label": "Project wide type checking with Js"
 
 Nhãn của nhiệm vụ, giúp bạn dễ dàng nhận biết nhiệm vụ này trong danh sách các nhiệm vụ.
 "type": "npm"

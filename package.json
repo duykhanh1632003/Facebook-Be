@@ -49,6 +49,7 @@
     "helmet": "^7.1.0",
     "image-downloader": "^4.3.0",
     "ioredis": "^5.4.1",
+    "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "kafkajs": "^2.2.4",
     "lodash": "^4.17.21",
