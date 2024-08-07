@@ -39,6 +39,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.9",
     "express": "^4.19.2",
+    "express-mongo-sanitize": "^2.2.0",
     "express-session": "^1.18.0",
     "ffprobe": "^1.1.2",
     "fluent-ffmpeg": "^1.7.2",
@@ -47,6 +48,7 @@
     "fss": "^1.0.0",
     "handbrake-js": "^7.0.0",
     "helmet": "^7.1.0",
+    "http-status": "^1.7.4",
     "image-downloader": "^4.3.0",
     "ioredis": "^5.4.1",
     "joi": "^17.13.3",
@@ -72,6 +74,7 @@
     "swagger-ui-express": "^5.0.1",
     "uuid": "^9.0.1",
     "winston": "^3.13.1",
+    "xss-clean": "^0.1.4",
     "yaml": "^2.5.0"
   },
   "devDependencies": {

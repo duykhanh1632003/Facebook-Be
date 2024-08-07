@@ -91,3 +91,17 @@ Các lệnh về Transaction
 MULTI: Bắt đầu một transaction.
 EXEC: Thực thi tất cả các lệnh trong transaction.
 DISCARD: Hủy bỏ tất cả các lệnh trong transaction.
+
+
+Thư viện express-mongo-sanitize được sử dụng trong các ứng dụng Node.js để ngăn chặn các cuộc tấn công 
+NoSQL injection bằng cách làm sạch dữ liệu đầu vào trước khi nó được sử dụng trong các truy vấn MongoDB. 
+Cuộc tấn công NoSQL injection là một kiểu tấn công mà kẻ tấn công có thể chèn hoặc thao túng dữ liệu trong các truy vấn cơ sở dữ liệu NoSQL, như MongoDB, để thực hiện các hành động không mong muốn hoặc truy cập dữ liệu không được phép.
+
+Thư viện xss trong Node.js được sử dụng để ngăn chặn các cuộc tấn công 
+Cross-Site Scripting (XSS) bằng cách làm sạch dữ liệu đầu vào và đầu ra, loại bỏ hoặc mã hóa các thành phần độc hại có thể được nhúng vào nội dung HTML.
+Chức năng của Thư viện xss
+Làm sạch dữ liệu đầu vào và đầu ra: 
+Thư viện xss giúp lọc bỏ hoặc mã hóa các thẻ HTML và các nội dung nguy hiểm, đảm bảo rằng các dữ liệu được hiển thị trên trang web không chứa mã độc.
+Ngăn chặn tấn công XSS: Bằng cách sử dụng xss, 
+bạn có thể ngăn chặn các kẻ tấn công chèn các tập lệnh độc hại vào các trang web của bạn, bảo vệ người dùng khỏi việc thực thi mã không mong muốn.
+
