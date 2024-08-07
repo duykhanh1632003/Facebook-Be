@@ -94,9 +94,9 @@ const { value: envVars, error } = envVarSchema.prefs({
 
 if (error) {
     throw new Error(`Config validation error: ${error.message}`);
-  }
+}
 
-  module.exports = {
+module.exports = {
     env: envVars.NODE_ENV,
     port: envVars.PORT,
     react: {

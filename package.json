@@ -2,11 +2,11 @@
   "name": "nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "bin": "bin/createNodejsApp.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node src/server.js",
+    "start": "nodemon --exec babel-node src/index.js",
     "prepare": "husky install",
     "eslint": "npx eslint ."
   },

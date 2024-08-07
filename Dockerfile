@@ -20,4 +20,4 @@ WORKDIR /app/src
 EXPOSE 8000
 
 # Start the application
-CMD ["node", "server.js"]
+CMD ["node", "index.js"]
