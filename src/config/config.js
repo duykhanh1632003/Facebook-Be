@@ -15,7 +15,7 @@ const envVarSchema = Joi.object({
     PORT: Joi.number().default(8000)
       .description('The port on which the server will run. Default is 8000.'),
     
-    URL_REACT: Joi.string().uri().default('http://localhost:5173/')
+    URL_REACT: Joi.string().uri().default('http://localhost:5173')
       .description('URL of the React frontend application.'),
     
     MAX_NUMBER_SCHEDULE: Joi.number().default(10)
@@ -99,9 +99,7 @@ if (error) {
 module.exports = {
     env: envVars.NODE_ENV,
     port: envVars.PORT,
-    react: {
-        url: envVars.URL_REACT,
-    },
+    react:  envVars.URL_REACT,
     maxNumberSchedule: envVars.MAX_NUMBER_SCHEDULE,
     mongoose: {
         url: envVars.MONGOOSE_HTTP + (envVars.NODE_ENV === 'test' ? '-test' : ''),

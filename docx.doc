@@ -116,5 +116,35 @@ Tóm lại, authLimiter sẽ giới hạn người dùng chỉ có thể thực 
 
 
 
+file paginate.plugin.js plugin
 
 
+hi Tiết Tác Dụng của Code
+Phương thức paginate được thêm vào schema:
+
+Sử dụng schema.static.paginate để thêm phương thức paginate vào bất kỳ schema nào sử dụng plugin này.
+Phương thức paginate sẽ nhận hai tham số:
+filter: Một đối tượng chứa điều kiện lọc tài liệu từ MongoDB.
+options: Một đối tượng chứa các tùy chọn để phân trang, sắp xếp, và populate dữ liệu.
+Xử lý tùy chọn sắp xếp (sortBy):
+
+Nếu có options.sortBy, phương thức sẽ xử lý nó thành chuỗi sắp xếp MongoDB.
+sortBy là một chuỗi với định dạng field:order (ví dụ: name:asc,createdAt:desc), tách ra và chuyển đổi thành chuỗi sắp xếp MongoDB (sort).
+Tính toán limit, page, và skip:
+
+limit: Số lượng tài liệu tối đa trên mỗi trang.
+page: Trang hiện tại, xác định điểm bắt đầu của các tài liệu cần truy vấn.
+skip: Số lượng tài liệu cần bỏ qua dựa trên trang hiện tại.
+Thực hiện các truy vấn:
+
+countPromise: Đếm tổng số tài liệu phù hợp với filter.
+docsPromise: Truy vấn tài liệu với filter, sort, và limit.
+Nếu có options.populate, plugin sẽ tự động thực hiện populate (nạp dữ liệu liên quan).
+Trả về kết quả:
+
+Sử dụng Promise.all để chờ cả hai truy vấn hoàn tất và trả về một đối tượng chứa:
+results: Danh sách tài liệu đã phân trang.
+page: Trang hiện tại.
+limit: Số lượng tài liệu trên mỗi trang.
+totalPages: Tổng số trang.
+totalResults: Tổng số tài liệu phù hợp với bộ lọc.

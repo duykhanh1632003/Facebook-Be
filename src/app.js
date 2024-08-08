@@ -18,9 +18,6 @@ require("./db/init.db");
 require("./db/init.sw3");
 // require("./db/init.es");
 
-
-
-
 const redisClient = require("./db/init.redis");
 const YAML = require("yaml");
 const fs = require("fs");
@@ -37,7 +34,7 @@ const swaggerDocument = YAML.parse(file);
 const app = express();
 app.use(xss())
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:80"], // Sử dụng config.react.url thay vì giá trị cố định
+  origin: ['http://localhost:5173', "http://localhost:80"], // Sử dụng config.react.url thay vì giá trị cố định
   credentials: true
 }));
 app.use(cookieParser());

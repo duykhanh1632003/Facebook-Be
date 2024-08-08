@@ -27,7 +27,7 @@ const errorHandler = (err, req, res, next) => {
         message,
         ...(config.env === 'development' && { stack: err.stack })
     };
-
+    
     logger.error(`${message} - ${err.stack}`);
 
     res.status(statusCode).send(errorDetails);
