@@ -9,7 +9,7 @@ dotenv.config({
 
 // Define schema for environment variables with descriptions
 const envVarSchema = Joi.object({
-    NODE_ENV: Joi.string().valid('production', 'development', 'test').default('development')
+    NODE_ENV: Joi.string().valid('production', 'development', 'test').required()
       .description('The environment in which the application is running, e.g., development, production, or test.'),
     
     PORT: Joi.number().default(8000)
@@ -110,7 +110,8 @@ module.exports = {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         },
-    },
+  },
+    sessionSecret: envVars.SESSION_SECRET,
     jwt: {
         secret: envVars.JWT_SECRET,
         accessExpirationMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,

@@ -40,6 +40,7 @@
     "ejs": "^3.1.9",
     "express": "^4.19.2",
     "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.4.0",
     "express-session": "^1.18.0",
     "ffprobe": "^1.1.2",
     "fluent-ffmpeg": "^1.7.2",

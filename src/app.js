@@ -10,27 +10,34 @@ const config = require("./config/config"); // Import config
 const xss = require('xss-clean')
 const mongoSanitize = require('express-mongo-sanitize');
 const httpStatus = require("http-status")
+const { morganErrorHandler, successHandler } = require('./config//morgan'); // Import morgan handler
 
 require("dotenv").config();
 require("./authGoogle");
 require("./db/init.db");
 require("./db/init.sw3");
 // require("./db/init.es");
+
+
+
+
 const redisClient = require("./db/init.redis");
 const YAML = require("yaml");
 const fs = require("fs");
 const path = require("path");
 const swaggerUi = require('swagger-ui-express');
 const ApiError = require("./utils/ApiError");
+const { errorHandler, errorConverter } = require("./middleware/error");
 
 const filePath = path.resolve(__dirname, './swagger-facebook.yaml');
 const file = fs.readFileSync(filePath, 'utf8');
 const swaggerDocument = YAML.parse(file);
 
+
 const app = express();
 app.use(xss())
 app.use(cors({
-  origin: [config.react.url, "http://localhost:80"], // Sử dụng config.react.url thay vì giá trị cố định
+  origin: ["http://localhost:5173", "http://localhost:80"], // Sử dụng config.react.url thay vì giá trị cố định
   credentials: true
 }));
 app.use(cookieParser());
@@ -63,6 +70,7 @@ app.use((req, res, next) => {
   next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
 });
 
-app.use()
+app.use(errorHandler)
+app.use(errorConverter)
 
 module.exports = app;

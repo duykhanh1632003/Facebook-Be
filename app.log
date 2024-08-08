@@ -28,3 +28,49 @@
 {"level":"info","message":"Listening to port 8000","timestamp":"2024-08-07 23:32:39"}
 {"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-07 23:33:12"}
 {"level":"info","message":"Listening to port 8000","timestamp":"2024-08-07 23:33:12"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 16:36:50"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 16:36:50"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 16:41:01"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 16:41:01"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 16:44:00"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 16:44:00"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 16:47:28"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 16:47:28"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 16:48:04"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 16:48:04"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 16:48:20"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 16:48:20"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 16:48:35"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 16:48:35"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 16:49:12"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 16:49:12"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 16:49:38"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 16:49:38"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 16:50:35"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 16:50:35"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 16:50:56"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 16:50:56"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 16:59:40"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 16:59:40"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 17:04:27"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 17:04:27"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 17:16:42"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 17:16:42"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 17:18:35"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 17:18:35"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 17:18:48"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 17:18:48"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 17:19:23"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 17:19:23"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 17:19:26"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 17:23:31"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 17:23:31"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 17:24:00"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 17:24:00"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 17:24:19"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 17:24:19"}
+{"level":"error","message":"secret option required for sessions - Error: secret option required for sessions\n    at session (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express-session\\index.js:204:12)\n    at Layer.handle [as handle_request] (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at Function.process_params (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express-mongo-sanitize\\index.js:122:5\n    at Layer.handle [as handle_request] (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at Function.process_params (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at compression (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\compression\\index.js:220:5)\n    at Layer.handle [as handle_request] (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at Function.process_params (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:521:6)\n    at xXssProtectionMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:299:3)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at xPoweredByMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:292:3)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at xPermittedCrossDomainPoliciesMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:285:3)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at xFrameOptionsMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:269:3)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at xDownloadOptionsMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:249:3)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at xDnsPrefetchControlMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:242:3)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at xContentTypeOptionsMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:234:3)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at strictTransportSecurityMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:227:3)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at referrerPolicyMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:195:3)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at originAgentClusterMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:170:3)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at crossOriginResourcePolicyMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:163:3)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at crossOriginOpenerPolicyMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:147:3)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at contentSecurityPolicyMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:112:4)\n    at internalNext (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:519:6)\n    at helmetMiddleware (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\helmet\\index.cjs:523:6)\n    at Layer.handle [as handle_request] (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at Function.process_params (D:\\Học hành tử tế\\Facebook\\backend\\node_modules\\express\\lib\\router\\index.js:346:12)","timestamp":"2024-08-08 17:24:19"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 17:27:54"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 17:27:54"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-08 17:28:04"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-08 17:28:04"}

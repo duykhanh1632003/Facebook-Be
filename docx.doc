@@ -105,3 +105,16 @@ Thư viện xss giúp lọc bỏ hoặc mã hóa các thẻ HTML và các nội 
 Ngăn chặn tấn công XSS: Bằng cách sử dụng xss, 
 bạn có thể ngăn chặn các kẻ tấn công chèn các tập lệnh độc hại vào các trang web của bạn, bảo vệ người dùng khỏi việc thực thi mã không mong muốn.
 
+Đoạn mã này định nghĩa một middleware cho Express.js để giới hạn số lượng yêu cầu (requests) được thực hiện trong một khoảng thời gian nhất định, giúp bảo vệ ứng dụng khỏi các cuộc tấn công DDoS hoặc lạm dụng tài nguyên.
+Cụ thể:
+rateLimit: Đây là middleware từ thư viện express-rate-limit dùng để giới hạn tốc độ yêu cầu.
+windowMs: 15 * 60 * 1000: Xác định khoảng thời gian 15 phút (15 phút * 60 giây * 1000 milliseconds).
+max: 20: Giới hạn số lượng yêu cầu tối đa là 20 trong khoảng thời gian windowMs (15 phút).
+skipSuccessfulRequests: true: Nếu yêu cầu thành công (có status code < 400), nó sẽ không được tính vào giới hạn này.
+Tóm lại, authLimiter sẽ giới hạn người dùng chỉ có thể thực hiện tối đa 20 yêu cầu trong 15 phút đối với các yêu cầu không thành công. Nếu một yêu cầu thành công, nó sẽ không được tính vào giới hạn này. Middleware này có thể được sử dụng để bảo vệ các endpoint liên quan đến xác thực (authentication) hoặc bất kỳ endpoint nào cần giới hạn tốc độ truy cập.
+
+
+
+
+
+
