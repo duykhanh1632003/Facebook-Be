@@ -121,6 +121,22 @@ class PostService {
     }, []);
     return images;
   }
+
+  async deleteThisPost(postId) {
+    const post = await postRepository.findById(postId)
+    if (!post) {
+      throw new BadRequestError("Post not found");
+    }
+    if (post.comments && post.comments.length > 0) {
+      commentRepository.deleteMany({_id : { $in : post.comments}})
+    }
+    if (post.likes && post.likes.length > 0) {
+      await feelingPostRepository.deleteMany({ _id : post.likes })
+    }
+    await postRepository.deleteThisPost(postId);
+    return { message: "Post, comments, and likes deleted successfully" };
+  }
+
 }
 
 module.exports = new PostService();

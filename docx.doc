@@ -148,3 +148,288 @@ page: Trang hiện tại.
 limit: Số lượng tài liệu trên mỗi trang.
 totalPages: Tổng số trang.
 totalResults: Tổng số tài liệu phù hợp với bộ lọc.
+
+
+
+Trong MongoDB, các toán tử query (query operators) giúp bạn thực hiện các thao tác tìm kiếm phức tạp. Dưới đây là một số toán tử phổ biến:
+
+1. $eq (Equal)
+Mô tả: Tìm các tài liệu có giá trị của một trường bằng với giá trị đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ age: { $eq: 25 } });
+Giải thích: Tìm tất cả người dùng có age bằng 25.
+2. $ne (Not Equal)
+Mô tả: Tìm các tài liệu có giá trị của một trường không bằng với giá trị đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ age: { $ne: 25 } });
+Giải thích: Tìm tất cả người dùng có age không bằng 25.
+3. $gt (Greater Than)
+Mô tả: Tìm các tài liệu có giá trị của một trường lớn hơn giá trị đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ age: { $gt: 25 } });
+Giải thích: Tìm tất cả người dùng có age lớn hơn 25.
+4. $gte (Greater Than or Equal)
+Mô tả: Tìm các tài liệu có giá trị của một trường lớn hơn hoặc bằng giá trị đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ age: { $gte: 25 } });
+Giải thích: Tìm tất cả người dùng có age lớn hơn hoặc bằng 25.
+5. $lt (Less Than)
+Mô tả: Tìm các tài liệu có giá trị của một trường nhỏ hơn giá trị đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ age: { $lt: 25 } });
+Giải thích: Tìm tất cả người dùng có age nhỏ hơn 25.
+6. $lte (Less Than or Equal)
+Mô tả: Tìm các tài liệu có giá trị của một trường nhỏ hơn hoặc bằng giá trị đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ age: { $lte: 25 } });
+Giải thích: Tìm tất cả người dùng có age nhỏ hơn hoặc bằng 25.
+7. $in (In)
+Mô tả: Tìm các tài liệu có giá trị của một trường bằng với một trong các giá trị trong mảng đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ age: { $in: [25, 30, 35] } });
+Giải thích: Tìm tất cả người dùng có age bằng 25, 30 hoặc 35.
+8. $nin (Not In)
+Mô tả: Tìm các tài liệu có giá trị của một trường không bằng với bất kỳ giá trị nào trong mảng đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ age: { $nin: [25, 30, 35] } });
+Giải thích: Tìm tất cả người dùng có age không bằng 25, 30 hoặc 35.
+9. $and (Logical AND)
+Mô tả: Tìm các tài liệu đáp ứng tất cả các điều kiện đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ $and: [{ age: { $gt: 25 } }, { age: { $lt: 35 } }] });
+Giải thích: Tìm tất cả người dùng có age lớn hơn 25 và nhỏ hơn 35.
+10. $or (Logical OR)
+Mô tả: Tìm các tài liệu đáp ứng ít nhất một trong các điều kiện đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ $or: [{ age: { $lt: 25 } }, { age: { $gt: 35 } }] });
+Giải thích: Tìm tất cả người dùng có age nhỏ hơn 25 hoặc lớn hơn 35.
+11. $not (Logical NOT)
+Mô tả: Tìm các tài liệu không đáp ứng điều kiện đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ age: { $not: { $gt: 25 } } });
+Giải thích: Tìm tất cả người dùng không có age lớn hơn 25.
+12. $exists (Field Existence)
+Mô tả: Tìm các tài liệu có hoặc không có một trường cụ thể.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ email: { $exists: true } });
+Giải thích: Tìm tất cả người dùng có trường email tồn tại.
+13. $regex (Regular Expression)
+Mô tả: Tìm các tài liệu có giá trị của một trường khớp với biểu thức chính quy.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ name: { $regex: /^J/, $options: 'i' } });
+Giải thích: Tìm tất cả người dùng có tên bắt đầu bằng "J", không phân biệt chữ hoa/thường.
+14. $size (Array Size)
+Mô tả: Tìm các tài liệu có một mảng với số phần tử nhất định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ hobbies: { $size: 3 } });
+Giải thích: Tìm tất cả người dùng có mảng hobbies chứa chính xác 3 phần tử.
+15. $elemMatch (Element Match)
+Mô tả: Tìm các tài liệu có một mảng chứa ít nhất một phần tử thỏa mãn tất cả các điều kiện đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ scores: { $elemMatch: { subject: "math", score: { $gt: 90 } } } });
+Giải thích: Tìm tất cả người dùng có mảng scores chứa phần tử có subject là "math" và score lớn hơn 90.
+16. $all (Array Match All)
+Mô tả: Tìm các tài liệu có một mảng chứa tất cả các giá trị đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ hobbies: { $all: ["reading", "sports"] } });
+Giải thích: Tìm tất cả người dùng có mảng hobbies chứa cả "reading" và "sports".
+Những toán tử này là cơ bản trong MongoDB, nhưng có thể kết hợp chúng để tạo ra các truy vấn phức tạp hơn, tùy thuộc vào yêu cầu của ứng dụng.
+17. $type (Type)
+Mô tả: Tìm các tài liệu có giá trị của một trường thuộc kiểu dữ liệu đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ age: { $type: "int" } });
+Giải thích: Tìm tất cả người dùng có age là số nguyên (int).
+18. $mod (Modulo)
+Mô tả: Tìm các tài liệu có giá trị của một trường chia hết cho số đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ age: { $mod: [4, 0] } });
+Giải thích: Tìm tất cả người dùng có age chia hết cho 4.
+19. $text (Text Search)
+Mô tả: Tìm các tài liệu có chứa từ hoặc cụm từ trong một trường văn bản được lập chỉ mục.
+Ví dụ:
+javascript
+Sao chép mã
+db.articles.find({ $text: { $search: "MongoDB tutorial" } });
+Giải thích: Tìm tất cả các bài viết có chứa cụm từ "MongoDB tutorial".
+20. $where (JavaScript Expression)
+Mô tả: Tìm các tài liệu khớp với một điều kiện được định nghĩa bởi biểu thức JavaScript.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ $where: "this.age > 25" });
+Giải thích: Tìm tất cả người dùng có age lớn hơn 25, sử dụng JavaScript.
+21. $expr (Expression)
+Mô tả: Tìm các tài liệu mà một biểu thức so sánh giữa các trường trong tài liệu.
+Ví dụ:
+javascript
+Sao chép mã
+db.sales.find({ $expr: { $gt: ["$amount", "$target"] } });
+Giải thích: Tìm tất cả các tài liệu sales có trường amount lớn hơn target.
+22. $allElementsTrue / $allElementsFalse (Array Elements)
+Mô tả: Tìm các tài liệu có tất cả hoặc không có phần tử nào trong một mảng khớp với điều kiện đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.surveys.find({ responses: { $allElementsTrue: [true, true, false] } });
+Giải thích: Tìm tất cả các tài liệu trong surveys mà mảng responses có tất cả phần tử là true.
+23. $size (Array Size)
+Mô tả: Tìm các tài liệu có một mảng với số phần tử nhất định.
+Ví dụ:
+javascript
+Sao chép mã
+db.users.find({ hobbies: { $size: 3 } });
+Giải thích: Tìm tất cả người dùng có mảng hobbies chứa chính xác 3 phần tử.
+24. $geoWithin (Geospatial Within)
+Mô tả: Tìm các tài liệu có điểm địa lý nằm trong một vùng đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.places.find({ location: { $geoWithin: { $centerSphere: [[-74, 40.74], 10/3963.2] } } });
+Giải thích: Tìm tất cả các địa điểm có location nằm trong một vòng tròn với bán kính 10 dặm, trung tâm tại tọa độ [-74, 40.74].
+25. $near (Geospatial Near)
+Mô tả: Tìm các tài liệu sắp xếp theo khoảng cách gần nhất đến một điểm địa lý đã chỉ định.
+Ví dụ:
+javascript
+Sao chép mã
+db.places.find({ location: { $near: { $geometry: { type: "Point", coordinates: [ -73.9667, 40.78 ] }, $maxDistance: 1000 } } });
+Giải thích: Tìm tất cả các địa điểm gần với tọa độ [-73.9667, 40.78] trong khoảng cách 1000 mét.
+26. $lookup (Aggregation)
+Mô tả: Thực hiện phép nối (join) trên các tài liệu từ một collection khác.
+Ví dụ:
+javascript
+Sao chép mã
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "products",
+      localField: "productId",
+      foreignField: "_id",
+      as: "productDetails"
+    }
+  }
+]);
+Giải thích: Lấy tất cả các orders và nối (join) với products để lấy thông tin chi tiết về sản phẩm.
+27. $match (Aggregation)
+Mô tả: Lọc các tài liệu trong pipeline bằng các tiêu chí nhất định.
+Ví dụ:
+javascript
+Sao chép mã
+db.orders.aggregate([
+  { $match: { status: "completed" } }
+]);
+Giải thích: Tìm tất cả các đơn hàng (orders) có status là "completed".
+28. $group (Aggregation)
+Mô tả: Nhóm các tài liệu theo một trường hoặc nhóm các giá trị.
+Ví dụ:
+javascript
+Sao chép mã
+db.orders.aggregate([
+  {
+    $group: {
+      _id: "$customerId",
+      totalAmount: { $sum: "$amount" }
+    }
+  }
+]);
+Giải thích: Tính tổng số tiền (totalAmount) của tất cả đơn hàng cho mỗi khách hàng (customerId).
+29. $unwind (Aggregation)
+Mô tả: Tách các phần tử trong một mảng thành các tài liệu riêng lẻ.
+Ví dụ:
+javascript
+Sao chép mã
+db.orders.aggregate([
+  { $unwind: "$items" }
+]);
+Giải thích: Tách từng phần tử trong mảng items của đơn hàng thành một tài liệu riêng lẻ.
+30. $addFields (Aggregation)
+Mô tả: Thêm các trường mới vào các tài liệu trong pipeline.
+Ví dụ:
+javascript
+Sao chép mã
+db.orders.aggregate([
+  { $addFields: { totalCost: { $multiply: ["$price", "$quantity"] } } }
+]);
+Giải thích: Thêm trường totalCost là tích của price và quantity vào mỗi tài liệu đơn hàng.
+31. $project (Aggregation)
+Mô tả: Chọn hoặc loại bỏ các trường khỏi các tài liệu trong pipeline.
+Ví dụ:
+javascript
+Sao chép mã
+db.orders.aggregate([
+  { $project: { customerId: 1, totalAmount: 1, _id: 0 } }
+]);
+Giải thích: Chỉ giữ lại các trường customerId và totalAmount, loại bỏ _id.
+32. $out (Aggregation)
+Mô tả: Ghi các tài liệu kết quả của pipeline vào một collection mới.
+Ví dụ:
+javascript
+Sao chép mã
+db.orders.aggregate([
+  { $group: { _id: "$customerId", totalAmount: { $sum: "$amount" } } },
+  { $out: "customerTotals" }
+]);
+Giải thích: Ghi kết quả tổng số tiền (totalAmount) của mỗi khách hàng vào collection customerTotals.
+33. $merge (Aggregation)
+Mô tả: Hợp nhất các tài liệu kết quả của pipeline vào một collection hiện có.
+Ví dụ:
+javascript
+Sao chép mã
+db.orders.aggregate([
+  { $group: { _id: "$customerId", totalAmount: { $sum: "$amount" } } },
+  { $merge: { into: "customerTotals", on: "_id", whenMatched: "merge", whenNotMatched: "insert" } }
+]);
+Giải thích: Hợp nhất kết quả tổng số tiền của mỗi khách hàng vào collection customerTotals, cập nhật tài liệu nếu tồn tại, hoặc thêm tài liệu mới nếu không tồn tại.
+34. $bucket (Aggregation)
+Mô tả: Nhóm các tài liệu vào các "bucket" (phân đoạn) dựa trên giá trị của một trường.
+Ví dụ:
+javascript
+Sao chép mã
+db.sales.aggregate([
+  { $bucket: { groupBy: "$amount", boundaries: [0, 100, 200, 300], default: "Other", output: { count: { $sum: 1 } } } }
+]);
+Giải thích: Nhóm các tài liệu sales vào các phân đoạn dựa trên giá trị amount (0-99, 100-199, 200-299).
+35. $sample (Aggregation)
+Mô tả: Chọn ngẫu nhiên một số lượng tài liệu từ collection.
+Ví dụ:
+javascript
+Sao chép mã
+db.orders.aggregate([
+  { $sample: { size: 5 } }
+]);
+Giải thích: Lấy ngẫu nhiên 5 đơn hàng từ collection orders.

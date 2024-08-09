@@ -1,5 +1,6 @@
 "use strict";
 const { createClient } = require("redis");
+const { promisify } = require("util");
 
 // Log the Redis URL to verify it
 console.log("Redis URL: ", process.env.URL_REDIS);
@@ -16,6 +17,7 @@ client.on("error", (err) => {
 client.on("connect", () => {
   console.log("Connected to Redis");
 });
+
 
 client.connect().catch(console.error);
 

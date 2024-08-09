@@ -39,6 +39,10 @@ class CommentRepository {
       .populate("userId", "firstName lastName avatar")
       .exec();
   }
+  
+  async deleteMany(filter) {
+    return await comment.deleteMany(filter)
+  }
 }
 
 module.exports = new CommentRepository();

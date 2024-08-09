@@ -96,7 +96,7 @@ class AccessController {
 
   searchUser = async (req, res, next) => {
     const { query } = req.query;
-    const result = await AccessService.searchUser(query);
+    const result = await AccessService.searchUser({query,currentUserId:req.user.userId});
     new SuccessResponse({
       message: "Search user successfully",
       metadata: result,

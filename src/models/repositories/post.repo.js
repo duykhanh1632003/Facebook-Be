@@ -51,6 +51,10 @@ class PostRepository {
   async findImagesByUserId(userId) {
     return await post.find({ author: userId }, { image: 1, _id: 1 }).exec();
   }
+
+  async deleteThisPost(postId) {
+    return post.deleteOne({ _id :postId})
+  }
 }
 
 module.exports = new PostRepository();

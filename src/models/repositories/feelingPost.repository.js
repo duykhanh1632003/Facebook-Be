@@ -27,6 +27,10 @@ class FeelingPostRepository {
       .populate("userId", "firstName lastName avatar")
       .exec();
   }
+
+  async deleteMany(filter) {
+    return await feelingPost.deleteMany(filter)
+  }
 }
 
 module.exports = new FeelingPostRepository();
