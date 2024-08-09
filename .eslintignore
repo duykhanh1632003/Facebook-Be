@@ -1,2 +1,5 @@
-dist 
-eslint.config.mjs
+node_modules
+bin
+test
+!.eslintrc.js
+src/rules/test/fixtures/
