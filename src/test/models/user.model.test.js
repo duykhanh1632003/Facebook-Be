@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const { user } = require('../../models/user.model'); // Ensure this path is correct
 const { faker } = require('@faker-js/faker');
+const { user } = require('../../models/user.model');
 
 describe('User Model', () => {
   let newUser;
@@ -82,7 +82,7 @@ describe('User Model', () => {
   test('should throw a validation error if email is not unique', async () => {
     const user1 = new user(newUser);
     const user2 = new user(newUser);
-
+      
     await user1.save();
     await expect(user2.save()).rejects.toThrow();
   }, 20000); // Increased timeout to 10 seconds

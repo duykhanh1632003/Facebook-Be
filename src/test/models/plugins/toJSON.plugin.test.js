@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const  toJSON  = require('../../../../src/models/plugins/toJson.plugin'); // Adjust the path as needed
+const toJSON = require('../../../models/plugins/toJson.plugin'); // Adjust the path as needed
 
 describe('toJSON plugin', () => {
   let User;
