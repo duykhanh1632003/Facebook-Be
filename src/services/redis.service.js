@@ -4,7 +4,7 @@ class RedisService {
   static async acquireLock(lockName, timeout = 5000) {
     const lockKey = `lock:${lockName}`;
     const end = Date.now() + timeout;
-
+    
     while (Date.now() < end) {
       const result = await new Promise((resolve, reject) => {
         client.set(lockKey, "locked", "NX", "PX", timeout, (err, reply) => {
@@ -53,6 +53,7 @@ class RedisService {
       throw new Error("Could not acquire lock");
     }
   }
+  
 
   static async handleGetBook(name) {
     const lockName = `book:${name}`;

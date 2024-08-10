@@ -87,7 +87,7 @@ describe('Error middlewares', () => {
       test('should convert any other object to ApiError with status 500 and its message', () => {
         const error = {};
         const next = jest.fn();
-  
+        
         errorConverter(error, httpMocks.createRequest(), httpMocks.createResponse(), next);
   
         expect(next).toHaveBeenCalledWith(expect.any(ApiError));

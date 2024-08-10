@@ -15,7 +15,7 @@ class StoryService {
     if (!newStory) {
       throw new BadRequestError("Cannot create story image");
     }
-    return;
+    return newStory;
   };
 
   static postStoryText = async ({ userId, text, font, background }) => {

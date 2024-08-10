@@ -23,8 +23,6 @@ const YAML = require("yaml");
 const fs = require("fs");
 const path = require("path");
 const swaggerUi = require('swagger-ui-express');
-const ApiError = require("./utils/ApiError");
-const { errorHandler, errorConverter } = require("./middleware/error");
 
 const filePath = path.resolve(__dirname, './swagger-facebook.yaml');
 const file = fs.readFileSync(filePath, 'utf8');
@@ -63,11 +61,6 @@ require("./cronJobs/updateStories");
 
 // send back a 404 error for any unknown api request
 
-app.use((req, res, next) => {
-  next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
-});
 
-app.use(errorHandler)
-app.use(errorConverter)
 
 module.exports = app;
