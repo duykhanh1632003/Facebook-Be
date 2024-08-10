@@ -433,3 +433,22 @@ db.orders.aggregate([
   { $sample: { size: 5 } }
 ]);
 Giải thích: Lấy ngẫu nhiên 5 đơn hàng từ collection orders.
+
+
+
+Phân tích chi tiết:
+Giám sát phương thức countDocuments:
+
+javascript
+Copy code
+jest.spyOn(User, 'countDocuments').mockImplementation(() => {
+  throw new Error('Database Error');
+});
+
+jest.spyOn: Đây là một phương thức của Jest dùng để "giám sát" một phương thức cụ thể của một đối tượng.
+ Nó cho phép bạn theo dõi các lần gọi đến phương thức đó, kiểm tra các tham số truyền vào, và thậm chí thay đổi hành vi của phương thức trong quá trình kiểm thử.
+User.countDocuments: Đây là một phương thức của Mongoose dùng để đếm số lượng tài liệu (document) khớp với bộ lọc được đưa ra.
+ Đây là một phần quan trọng trong quá trình phân trang vì nó xác định có bao nhiêu trang tổng cộng.
+mockImplementation: Lệnh này thay đổi hành vi của phương thức countDocuments trong suốt quá trình kiểm thử này.
+ Thay vì thực hiện chức năng thông thường của nó, phương thức này sẽ ngay lập tức ném ra một lỗi với thông điệp "Database Error". 
+ Điều này giúp giả lập một kịch bản khi có lỗi xảy ra trong cơ sở dữ liệu.

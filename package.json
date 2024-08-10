@@ -84,11 +84,13 @@
     "yaml": "^2.5.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.17",
+    "@babel/core": "^7.25.2",
     "@babel/node": "^7.22.15",
-    "@babel/preset-env": "^7.22.15",
+    "@babel/preset-env": "^7.25.3",
     "@eslint/js": "^9.8.0",
+    "@faker-js/faker": "^8.4.1",
     "@types/jest": "^29.5.12",
+    "babel-jest": "^29.7.0",
     "chai": "^5.1.1",
     "eslint": "^9.8.0",
     "eslint-plugin-jest": "^28.8.0",
