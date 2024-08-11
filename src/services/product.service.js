@@ -20,7 +20,7 @@ class ProductService {
             quantity: parseInt(combination.quantity, 10),
           }));
       }
-
+      
       const newProduct = await product.create(data);
       return newProduct;
     } catch (error) {

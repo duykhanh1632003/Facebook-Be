@@ -692,3 +692,228 @@
 {"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 20:33:57"}
 {"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 20:34:01"}
 {"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 20:34:01"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:19:05"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:19:05"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:19:32"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:19:32"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:21:19"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:21:19"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:21:29"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:21:29"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:25:56"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:25:56"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:26:05"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:26:05"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:26:17"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:26:17"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:27:50"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:27:50"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:28:33"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:28:33"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:28:39"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:28:39"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:29:03"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:29:03"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:41:23"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:41:23"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:44:02"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:44:02"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:44:11"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:44:11"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:44:21"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:44:21"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:44:34"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:44:34"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:45:11"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:45:11"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:45:30"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:45:30"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:45:39"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:45:39"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:45:56"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:45:56"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:45:59"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:45:59"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:47:13"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:47:13"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:47:39"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:47:39"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:47:55"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:47:55"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:47:56"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:47:57"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:47:58"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:47:58"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:47:59"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:48:00"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:48:01"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:48:03"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:48:05"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:48:05"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:48:09"}
+{"level":"info","message":"Server closed","timestamp":"2024-08-10 22:48:14"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:50:19"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:50:19"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:50:22"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:50:24"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:50:25"}
+{"level":"error","message":"undefined","timestamp":"2024-08-10 22:50:28"}
+{"level":"info","message":"Server closed","timestamp":"2024-08-10 22:50:33"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-10 22:51:17"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-10 22:51:17"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:41:23"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:41:23"}
+{"code":"UND_ERR_CONNECT_TIMEOUT","level":"error","message":"undefined","name":"ConnectTimeoutError","timestamp":"2024-08-11 08:41:33"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:48:39"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:48:39"}
+{"code":"UND_ERR_CONNECT_TIMEOUT","level":"error","message":"undefined","name":"ConnectTimeoutError","timestamp":"2024-08-11 08:48:49"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:49:18"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:49:18"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:49:30"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:49:30"}
+{"code":"UND_ERR_CONNECT_TIMEOUT","level":"error","message":"undefined","name":"ConnectTimeoutError","timestamp":"2024-08-11 08:49:40"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:53:32"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:53:32"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:54:49"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:54:49"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:55:04"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:55:04"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:55:08"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:55:08"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:56:45"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:56:45"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:57:48"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:57:48"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:58:06"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:58:06"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:58:15"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:58:15"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:58:23"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:58:23"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:58:36"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:58:36"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:59:03"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:59:03"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:59:32"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:59:32"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 08:59:43"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 08:59:43"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:00:57"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:00:57"}
+{"level":"error","message":"undefined","timestamp":"2024-08-11 09:01:28"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:03:20"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:03:20"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:03:28"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:03:28"}
+{"level":"error","message":"undefined","timestamp":"2024-08-11 09:03:33"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:03:56"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:03:56"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:04:08"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:04:08"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:04:30"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:04:30"}
+{"level":"error","message":"undefined","timestamp":"2024-08-11 09:04:32"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:05:14"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:05:15"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:06:18"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:06:18"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:09:55"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:09:55"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:10:10"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:10:10"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:10:22"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:10:22"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:10:47"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:10:47"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:12:25"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:12:25"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:12:37"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:12:37"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:13:17"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:13:17"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:14:05"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:14:05"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:16:42"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:16:42"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:16:52"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:16:52"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:17:27"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:17:27"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:17:44"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:17:44"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:17:57"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:17:57"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:18:01"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:18:01"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:18:14"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:18:14"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:18:38"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:18:38"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:18:48"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:18:48"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:18:56"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:18:56"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:19:12"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:19:12"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:19:31"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:19:31"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:19:42"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:19:42"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:20:07"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:20:07"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:20:24"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:20:24"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:20:44"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:20:44"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:20:50"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:20:50"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:24:37"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:24:37"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:27:11"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:27:11"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:27:24"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:27:24"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:28:31"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:28:31"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:29:41"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:29:41"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:29:49"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:29:49"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:31:09"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:31:09"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:31:16"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:31:16"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:31:23"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:31:23"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:31:34"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:31:34"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:32:02"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:32:02"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:33:16"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:33:16"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:33:29"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:33:29"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:33:42"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:33:42"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:33:58"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:33:58"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:36:03"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:36:03"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:36:19"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:36:20"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:36:36"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:36:36"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:36:57"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:36:57"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:42:57"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:42:57"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:43:00"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:43:00"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:43:42"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:43:42"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:43:52"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:43:52"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:44:06"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:44:06"}
+{"level":"info","message":"Connected to mongoDB","timestamp":"2024-08-11 09:44:12"}
+{"level":"info","message":"Listening to port 8000","timestamp":"2024-08-11 09:44:12"}

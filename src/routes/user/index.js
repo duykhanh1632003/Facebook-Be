@@ -30,14 +30,5 @@ router.post(
   "/user/refreshToken",
   asyncHandler(accessController.handleRefreshToken)
 );
-router.post(
-  "/search-history",
-  asyncHandler(accessController.searchHistoryOfUser)
-);
-router.get(
-  "/search-history/:userId",
-  asyncHandler(accessController.getSearchHistoryOfUser)
-);
-router.get("/search/users", asyncHandler(accessController.searchUser));
-router.post("/remove/user/search",asyncHandler(accessController.removeUserFromSearch))
+
 module.exports = router;

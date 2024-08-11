@@ -35,45 +35,62 @@ class RedisService {
   }
 
   static async handlePostBook(bookData) {
-    const lockName = `book:${bookData.name}`;
-
-    if (await this.acquireLock(lockName)) {
-      try {
-        // Lưu dữ liệu sách vào Redis
-        return new Promise((resolve, reject) => {
-          client.set(bookData.name, JSON.stringify(bookData), (err, reply) => {
-            if (err) reject(err);
-            resolve(reply);
-          });
-        });
-      } finally {
-        await this.releaseLock(lockName);
-      }
-    } else {
-      throw new Error("Could not acquire lock");
-    }
+    const key = `book:${bookData.name}`;
+  
+    // Save book data to Redis
+    await new Promise((resolve, reject) => {
+      client.set(key, JSON.stringify(bookData), (err, reply) => {
+        if (err) return reject(err);
+        console.log(reply);
+        resolve(reply);
+      });
+    });
+  
+    // Retrieve the saved book data from Redis
+    const data = await new Promise((resolve, reject) => {
+      client.get(key, (err, reply) => {
+        if (err) return reject(err);
+        resolve(reply);
+      });
+    });
+  
+    return JSON.parse(data); // Parse the data to convert it back to an object
   }
   
 
-  static async handleGetBook(name) {
-    const lockName = `book:${name}`;
-
-    if (await this.acquireLock(lockName)) {
-      try {
-        // Lấy dữ liệu sách từ Redis
-        return new Promise((resolve, reject) => {
-          client.get(name, (err, reply) => {
-            if (err) reject(err);
-            resolve(JSON.parse(reply));
-          });
-        });
-      } finally {
-        await this.releaseLock(lockName);
-      }
-    } else {
-      throw new Error("Could not acquire lock");
-    }
+  static async handlePostSearch({ userId, searchParams }) {
+    const key = `search:${userId}`;
+    console.log("data key", key);
+  
+    // Save searchParams to Redis
+    await new Promise((resolve, reject) => {
+      client.set(key, JSON.stringify(searchParams), (err, reply) => {
+        if (err) return reject(err);
+        console.log(reply);
+        resolve(reply);
+      });
+    });
   }
+  
+
+  static async handleGetSearch(userId) {
+    const key = `search:${userId}`;
+    const data = await new Promise((resolve, reject) => {
+      client.get(key, (err, reply) => {
+        if (err) return reject(err);
+        resolve(reply);
+      });
+    });
+  
+    // Handle case where data is null
+    if (!data) {
+      return null;
+    }
+  
+    return JSON.parse(data);
+  }
+  
+
 }
 
 module.exports = RedisService;

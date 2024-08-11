@@ -14,6 +14,7 @@ const sendEmail = require("../utils/sendMailer");
 const searchHistoryModel = require("../models/searchHistory.model");
 const keyTokenModel = require("../models/keyToken.model");
 const friendList = require("../models/friendList");
+const RedisService = require("./redis.service");
 
 class AccessService {
   static refreshAccessToken = async (refreshToken) => {
@@ -197,114 +198,7 @@ class AccessService {
     return { message: "Password changed successfully" };
   };
 
-  static searchHistoryOfUser = async ({ userId, searchedUserId }) => {
-    let searchHistory = await searchHistoryModel.findOne({ user: userId });
-
-    if (!searchHistory) {
-      searchHistory = await searchHistoryModel.create({
-        user: userId,
-        searchedUsers: [],
-      });
-    }
-    
-    const existingUserIndex = searchHistory.searchedUsers.findIndex((item) => item.user.toString() === searchedUserId)
-    if (existingUserIndex !== -1) {
-      searchHistory.searchedUsers[existingUserIndex].searchedAt = Date.now()
-    }
-    else {
-      searchHistory.searchedUsers.push({ user: searchedUserId });
-    }
-
-    await searchHistory.save();
-    return searchHistory.searchedUsers.slice(-8); 
-  };
-
-  static getSearchHistoryOfUser = async (userId) => {
-    const searchHistory = await searchHistoryModel
-        .findOne({ user: userId })
-        .populate({
-            path: "searchedUsers.user",
-            select: "_id firstName lastName avatar",
-        })
-        .exec();
-
-    if (!searchHistory) {
-        throw new BadRequestError("No search history found");
-    }
-
-    let formattedSearchHistory = [];
-    if (
-        searchHistory.searchedUsers &&
-        Array.isArray(searchHistory.searchedUsers)
-    ) {
-        formattedSearchHistory = searchHistory.searchedUsers
-            .filter((searchedUser) => searchedUser.user)
-            .map((searchedUser) => ({
-                _id: searchedUser.user._id,
-                firstName: searchedUser.user.firstName,
-                lastName: searchedUser.user.lastName,
-                avatar: searchedUser.user.avatar,
-            }));
-    }
-
-    return formattedSearchHistory.slice(-8); // Trả về tối đa 8 user
-};
-
-
-static searchUser = async ({ query, currentUserId }) => {
-  const keywords = query.split(" ").filter(Boolean);
-
-  const regexConditions = keywords.map((keyword) => ({
-      $or: [
-          { firstName: { $regex: new RegExp(keyword, "i") } },
-          { lastName: { $regex: new RegExp(keyword, "i") } },
-          { email: { $regex: new RegExp(keyword, "i") } },
-      ],
-  }));
-
-  const foundUsers = await user
-      .find({
-          $and: regexConditions,
-      })
-      .select("_id firstName lastName avatar")
-      .limit(8)
-      .lean();
   
-  const friendLists = await friendList.findOne({ user: currentUserId });
-
-  const usersWithFriendStatus = foundUsers.map((foundUser) => ({
-      ...foundUser,
-      isFriend: friendLists
-          ? friendLists.friends.includes(foundUser._id)
-          : false,
-  }));
-
-  return usersWithFriendStatus.slice(0, 8); // Trả về tối đa 8 user
-  };
-
-
-  static removeUserFromSearch = async ({ user, searchedUsers }) => {
-    const query = { user: user };
-    const updateSet = {
-        $pull: {
-            searchedUsers: {
-                user: searchedUsers,
-            },
-        },
-    };
-    const updateSearch = await searchHistoryModel.updateOne(query, updateSet);
-    if (!updateSearch) {
-        throw new BadRequestError("Cannot update search");
-    }
-    
-    const updatedSearchHistory = await searchHistoryModel.findOne(query).limit(8);
-    
-    // Đảm bảo chỉ trả về tối đa 8 user sau khi cập nhật
-    updatedSearchHistory.searchedUsers = updatedSearchHistory.searchedUsers.slice(-8);
-    await updatedSearchHistory.save();
-    
-    return updatedSearchHistory.searchedUsers.slice(-8);
-};
 
 }
 

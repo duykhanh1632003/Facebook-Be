@@ -65,26 +65,8 @@ class AccessController {
     }).send(res);
   };
 
-  searchHistoryOfUser = async (req, res, next) => {
-    const { userId, searchedUserId } = req.body;
-    const result = await AccessService.searchHistoryOfUser({
-      userId,
-      searchedUserId,
-    });
-    new SuccessResponse({
-      message: "Search history updated successfully",
-      metadata: result,
-    }).send(res);
-  };
 
-  getSearchHistoryOfUser = async (req, res, next) => {
-    const { userId } = req.params;
-    const result = await AccessService.getSearchHistoryOfUser(userId);
-    new SuccessResponse({
-      message: "Get search history successfully",
-      metadata: result,
-    }).send(res);
-  };
+ 
 
   getInfUser = async (req, res, next) => {
     const result = await AccessService.getInfUser(req.query.email);
@@ -94,24 +76,7 @@ class AccessController {
     }).send(res);
   };
 
-  searchUser = async (req, res, next) => {
-    const { query } = req.query;
-    const result = await AccessService.searchUser({query,currentUserId:req.user.userId});
-    new SuccessResponse({
-      message: "Search user successfully",
-      metadata: result,
-    }).send(res);
-  };
-  removeUserFromSearch = async (req, res, next) => {
-    const { userId } = req.body;
-    const result = await AccessService.removeUserFromSearch({
-      user: req.user.userId,
-      searchedUsers: userId,
-    });
-    new SuccessResponse({
-      message: "Remove user successfully",
-    }).send(res);
-  };
+  
 }
 
 module.exports = new AccessController();
