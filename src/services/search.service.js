@@ -77,7 +77,7 @@ class SearchService {
             select: "_id firstName lastName avatar",
           })
           .exec();
-      
+          
         const formattedSearchHistory = populatedSearchHistory.searchedUsers
           .filter((searchedUser) => searchedUser.user)
           .map((searchedUser) => ({

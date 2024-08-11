@@ -47,7 +47,7 @@ class FriendService {
           const nonFriendFriends = nonFriendList ? nonFriendList.friends : [];
 
           const mutualFriends = nonFriendFriends.filter((nonFriendFriend) =>
-            friends.includes(nonFriendFriend.toString())
+            friends.map(friend => friend.toString()).includes(nonFriendFriend.toString())
           );
 
           // Lấy thông tin chi tiết của bạn chung
@@ -130,7 +130,7 @@ class FriendService {
       const receivedRequestIds = receivedRequests.map(
         (request) => request.sender
       );
-
+  
       // Lấy thông tin chi tiết của người gửi yêu cầu
       const senders = await user
         .find(
@@ -139,14 +139,14 @@ class FriendService {
         )
         .lean()
         .exec();
-
+  
       // Lấy danh sách bạn bè
       const friendLists = await friendList
         .findOne({ user: userId })
         .lean()
         .exec();
       const friends = friendLists ? friendLists.friends : [];
-
+  
       // Tính toán bạn chung cho mỗi người gửi yêu cầu
       const requestsWithMutualFriends = await Promise.all(
         senders.map(async (sender) => {
@@ -154,14 +154,13 @@ class FriendService {
             .findOne({ user: sender._id })
             .lean()
             .exec();
-          const senderFriends = senderFriendList
-            ? senderFriendList.friends
-            : [];
-
+          const senderFriends = senderFriendList ? senderFriendList.friends : [];
+  
+          // Convert ObjectId to strings for comparison
           const mutualFriends = senderFriends.filter((senderFriend) =>
-            friends.includes(senderFriend.toString())
+            friends.map(friend => friend.toString()).includes(senderFriend.toString())
           );
-
+  
           // Lấy thông tin chi tiết của bạn chung
           const mutualFriendsDetails = await user
             .find(
@@ -170,7 +169,7 @@ class FriendService {
             )
             .lean()
             .exec();
-
+  
           return {
             sender: {
               _id: sender._id,
@@ -187,13 +186,14 @@ class FriendService {
           };
         })
       );
-
+  
       return requestsWithMutualFriends;
     } catch (e) {
       console.log(e);
       throw new BadRequestError("Error fetching friend requests", e);
     }
   };
+  
 
   static acceptFriendRequest = async ({ userId, senderId }) => {
     try {
@@ -234,24 +234,27 @@ class FriendService {
         .findOne({ user: userId })
         .populate({
           path: "friends",
-          select: "avatar",
+          select: "_id firstName lastName avatar",
         })
         .lean()
         .exec();
-
+  
       // If no friend list is found, return 0 friends
       if (!friendFound) {
         return { numberOfFriends: 0, friends: [] };
       }
-
+  
       const frNumber = friendFound.friends.length;
-      const first8Friends = friendFound.friends;
-
+      // Get the first 8 friends
+      const first8Friends = friendFound.friends.slice(0, 8);
+  
       // Return the number of friends and the avatars of the first 8 friends
       return {
         numberOfFriends: frNumber,
         friends: first8Friends.map((friend) => ({
           _id: friend._id,
+          firstName: friend.firstName,  
+          lastName: friend.lastName,
           avatar: friend.avatar,
         })),
       };
@@ -260,6 +263,7 @@ class FriendService {
       throw new BadRequestError("Error fetching number of friends", e.message);
     }
   };
+  
 
   static getDetailOfAUser = async ({ userId, idAnother }) => {
     try {
