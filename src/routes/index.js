@@ -21,5 +21,6 @@ router.use("/v1/api", require("./attributes"));
 router.use("/v1/api", require("./discount"));
 router.use("/v1/api", require("./location"));
 router.use("/v1/api", require("./search"));
+router.use("/v1/api", require("./detailUser"));
 
 module.exports = router;

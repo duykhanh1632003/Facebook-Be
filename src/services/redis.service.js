@@ -58,38 +58,39 @@ class RedisService {
   }
   
 
-  static async handlePostSearch({ userId, searchParams }) {
-    const key = `search:${userId}`;
-    console.log("data key", key);
+  // Method to handle saving the search parameters with expiration
+static async handlePostSearch({ userId, searchParams }) {
+  const key = `search:${userId}`;
+  console.log("data key", key);
   
-    // Save searchParams to Redis
-    await new Promise((resolve, reject) => {
-      client.set(key, JSON.stringify(searchParams), (err, reply) => {
-        if (err) return reject(err);
-        console.log(reply);
-        resolve(reply);
-      });
+  // Save searchParams to Redis with a TTL of 1 hour (3600 seconds)
+  await new Promise((resolve, reject) => {
+    client.setex(key, 3600, JSON.stringify(searchParams), (err, reply) => { // 3600 seconds = 1 hour
+      if (err) return reject(err);
+      console.log(reply);
+      resolve(reply);
     });
-  }
-  
+  });
+}
 
-  static async handleGetSearch(userId) {
-    const key = `search:${userId}`;
-    const data = await new Promise((resolve, reject) => {
-      client.get(key, (err, reply) => {
-        if (err) return reject(err);
-        resolve(reply);
-      });
+// Method to handle retrieving the search parameters
+static async handleGetSearch(userId) {
+  const key = `search:${userId}`;
+  const data = await new Promise((resolve, reject) => {
+    client.get(key, (err, reply) => {
+      if (err) return reject(err);
+      resolve(reply);
     });
-  
-    // Handle case where data is null
-    if (!data) {
-      return null;
-    }
-  
-    return JSON.parse(data);
+  });
+
+  // Handle case where data is null
+  if (!data) {
+    return null;
   }
-  
+
+  return JSON.parse(data);
+}
+
 
 }
 

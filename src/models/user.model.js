@@ -114,6 +114,7 @@
       oldCity: oldCity,
       socialLinks: [linkOfSocial],
       dateOfBirth: dateOfBirth,
+      biography: { type: String}
     },
     {
       timestamps: true,
