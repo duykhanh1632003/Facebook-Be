@@ -126,5 +126,4 @@
   userSchema.index({ lastName: 1 });
   userSchema.index({ email: 1 });
 
-
   module.exports = { user: mongoose.model(DOCUMENT_NAME, userSchema) };
