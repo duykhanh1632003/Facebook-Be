@@ -452,3 +452,34 @@ User.countDocuments: Đây là một phương thức của Mongoose dùng để 
 mockImplementation: Lệnh này thay đổi hành vi của phương thức countDocuments trong suốt quá trình kiểm thử này.
  Thay vì thực hiện chức năng thông thường của nó, phương thức này sẽ ngay lập tức ném ra một lỗi với thông điệp "Database Error". 
  Điều này giúp giả lập một kịch bản khi có lỗi xảy ra trong cơ sở dữ liệu.
+
+
+
+
+Giải thích chi tiết
+generateBehaviorVector(userId): Hàm này nhận vào userId và tạo ra một vector hành vi đa chiều cho người dùng đó. Vector này chứa các thông tin như số lượng view, like, comment, share, và click mà người dùng đã thực hiện, tổng thời gian dành cho các bài viết, 
+tần suất tương tác, thời gian tương tác gần nhất và bản đồ frequentInteractions để theo dõi các tương tác thường xuyên với các người dùng khác.
+Tính toán trọng số cho mỗi loại hành động: Dựa trên hành động (action) và trọng số tương ứng từ WEIGHTS, 
+giá trị của hành động đó được cộng vào vector tương ứng. Ví dụ, nếu người dùng thực hiện một like, giá trị của like trong vector sẽ tăng lên theo trọng số.
+
+Tính toán sự giảm dần theo thời gian (Time Decay): Các hành động cũ sẽ ít ảnh hưởng hơn nhờ vào hệ số giảm dần TIME_DECAY_FACTOR. 
+Điều này đảm bảo rằng các hành động gần đây được ưu tiên hơn khi phân tích hành vi người dùng.
+
+Tính tổng thời gian đã dành và tần suất tương tác: Vector này cũng theo dõi 
+tổng thời gian người dùng đã dành cho các bài viết và số lượng tương tác trên mỗi ngày.
+
+Theo dõi tương tác với các người dùng khác: Hàm này cũng tạo ra một bản đồ frequentInteractions để ghi nhận các tương tác của người dùng với những người
+ dùng khác, dựa trên thời gian và hành động cụ thể.
+
+recommendPosts(userId): Hàm này chịu trách nhiệm đề xuất các bài viết cho người dùng dựa trên vector hành vi đã được tạo ra, độ tương đồng cosin,
+ dự đoán chuỗi thời gian, và tần suất tương tác với tác giả của các bài viết.
+
+contentVector: Mỗi bài viết được đại diện bởi một vector, bao gồm các đặc điểm như số lượng likes, comments, và shares.
+
+Tính toán điểm tương đồng: Sử dụng độ tương đồng cosin giữa vector hành vi người dùng và vector bài viết,
+ sau đó kết hợp với điểm dự đoán chuỗi thời gian và điểm tương tác với tác giả của bài viết.
+
+Điểm cuối cùng (finalScore): Điểm cuối cùng cho mỗi bài viết là trung bình cộng của ba giá trị: độ tương đồng cosin, điểm chuỗi thời gian, và điểm tương tác với tác giả.
+
+Sắp xếp và trả về: Các bài viết sau đó được sắp xếp theo điểm số từ cao xuống thấp, và hàm trả về 10 bài viết được đề xuất hàng đầu.
+

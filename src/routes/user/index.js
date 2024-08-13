@@ -28,7 +28,11 @@ router.post(
 router.post("/user/logout", asyncHandler(accessController.logout));
 router.post(
   "/user/refreshToken",
-  asyncHandler(accessController.handleRefreshToken)
+  asyncHandler(accessController.handlerRefreshToken)
+);
+router.post(
+  "/user/post/recommend",
+  asyncHandler(accessController.recommendCode)
 );
 
 module.exports = router;

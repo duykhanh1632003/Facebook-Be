@@ -1,6 +1,7 @@
 "use strict";
 const AccessService = require("../services/access.service");
 const { CREATED, SuccessResponse } = require("../core/success.response.js");
+const { analyzeAndRecommend } = require("../analystBehavior/RecommendPost.js");
 
 class AccessController {
   handlerRefreshToken = async (req, res, next) => {
@@ -75,7 +76,13 @@ class AccessController {
       metadata: result,
     }).send(res);
   };
-
+  recommendCode= async (req, res, next) => {
+    const result = await analyzeAndRecommend(req.user.userId);
+    new SuccessResponse({
+      message: "Get Inf User success",
+      metadata: result,
+    }).send(res);
+  };
   
 }
 
