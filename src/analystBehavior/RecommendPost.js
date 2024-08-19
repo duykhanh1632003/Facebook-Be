@@ -81,7 +81,7 @@ async function generateBehaviorVector(userId) {
                     (initialVector.frequentInteractions.get(postAuthor.author) || 0) + timeDecay);
             }
         }
-
+        
         return [
             initialVector.view,
             initialVector.like,

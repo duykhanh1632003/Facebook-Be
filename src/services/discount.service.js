@@ -9,7 +9,7 @@ class DiscountService {
       return newDiscount;
     } catch (e) {
       console.log(e);
-      throw new BadRequestError("Error creating discount", e);
+      throw new BadRequestError ("Error creating discount", e);
     }
   };
 
