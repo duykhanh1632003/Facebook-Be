@@ -1,26 +1,14 @@
 "use strict";
 const express = require("express");
 const { apiKey, permission } = require("../auth/checkAuth");
-const { pushToLogDiscord } = require("../middleware");
 const router = express.Router();
-router.use("", require("./google"));
-router.use(pushToLogDiscord);
+
 router.use(apiKey);
 router.use(permission("0000"));
 router.use("/v1/api", require("./user"));
 router.use("/v1/api", require("./post"));
 router.use("/v1/api", require("./friend"));
-router.use("/v1/api", require("./comment"));
-router.use("/v1/api", require("./redis"));
-router.use("/v1/api", require("./story"));
-router.use("/v1/api", require("./uploadSW3"));
-router.use("/v1/api", require("./watch"));
-router.use("/v1/api", require("./tinder"));
-router.use("/v1/api", require("./product"));
-router.use("/v1/api", require("./attributes"));
-router.use("/v1/api", require("./discount"));
-router.use("/v1/api", require("./location"));
-router.use("/v1/api", require("./search"));
-router.use("/v1/api", require("./detailUser"));
+router.use("/v1/api",require("./conversation"));
+router.use("/v1/api",require('./message'));
 
 module.exports = router;
