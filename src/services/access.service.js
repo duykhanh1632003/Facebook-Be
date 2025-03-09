@@ -34,7 +34,7 @@ class AccessService {
 
       return { tokens: { accessToken: tokens.accessToken } };
     } catch (err) {
-      throw new RefreshTokenError("Refresh token expired",err);
+      throw new RefreshTokenError("Refresh token expired", err);
     }
   };
   static handlerRefreshToken = async (refreshToken) => {
@@ -88,7 +88,10 @@ class AccessService {
     gender,
   }) => {
     try {
+      console.log("Da vao day")
+
       const holderUser = await user.findOne({ email }).lean();
+      console.log("Da vao day")
       if (holderUser) {
         throw new BadRequestError("User already registered");
       }
@@ -104,7 +107,7 @@ class AccessService {
 
       return newUser;
     } catch (e) {
-      throw new AuthFailError("Cannot create account",e);
+      throw new AuthFailError("Cannot create account", e);
     }
   };
   static logout = async (keystore) => {
@@ -198,7 +201,7 @@ class AccessService {
     return { message: "Password changed successfully" };
   };
 
-  
+
 
 }
 

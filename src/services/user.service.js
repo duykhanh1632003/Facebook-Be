@@ -17,6 +17,7 @@ const findByEmail = async ({
     password: 1,
     email: 1,
     phoneNumber: 1,
+    
     avatar: 1,
   },
 }) => {
